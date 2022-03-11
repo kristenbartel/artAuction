@@ -1,0 +1,23 @@
+{
+  "development": {
+    "username": "ohjyjzop",
+    "password": "43MXSywJ3HrYbdlxEEvVCVItnLDU-J1G",
+    "database": "ohjyjzop",
+    "host": "kashin.db.elephantsql.com",
+    "dialect": "postgres"
+  },
+  "test": {
+    "username": "ohjyjzop",
+    "password": null,
+    "database": "database_test",
+    "host": "127.0.0.1",
+    "dialect": "postgres"
+  },
+  "production": {
+    "username": "ohjyjzop",
+    "password": null,
+    "database": "database_production",
+    "host": "127.0.0.1",
+    "dialect": "postgres"
+  }
+}
