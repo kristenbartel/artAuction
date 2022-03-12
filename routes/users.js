@@ -9,15 +9,15 @@ require('dotenv').config();
 
 
 router.post('/register', async (req, res, next) => {
-  const { firstname, lastname, email, username, password} = req.body;
+  const { firstName, lastName, email, userName, password} = req.body;
   const createUser = await Users.create({
-    firstname,
-    lastname,
+    firstName,
+    lastName,
     email,
-    username,
+    userName,
     password
   })
-  res.redirect('/login');
+  res.json(createUser);
 })
 
 
