@@ -9,25 +9,31 @@ require('dotenv').config();
 /* GET home page. */
 router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
+  //once clicked redirect to login
 });
 
 router.get('/login', function(req, res, next) {
   res.render('login');
+  //if not registered take to register
+  //middleware and redirect to auction
 });
 
 router.get('/register', function(req, res, next) {
   res.render('register');
+  //redirect to login
 });
 
 router.get('/auction', function(req, res, next) {
   res.render('auction'); 
   // insert isValidUser middleware
+  // form for making bid connected to POST
 });
 
 router.get('/profile', function(req, res, next) {
   res.render('profile');
   // insert isValidUser middleware
   //specific to user- use destructuring for userID
+  // this will render all bids made
 });
 
 router.get('/about', function(req, res, next) {
