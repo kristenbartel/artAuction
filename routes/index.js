@@ -30,4 +30,11 @@ router.get('/profile', function(req, res, next) {
   //specific to user- use destructuring for userID
 });
 
+router.get('/about', function(req, res, next) {
+  res.render('about'); 
+  // insert isValidUser middleware?? 
+  // address partial Header route issue
+});
+
+
 module.exports = router;
