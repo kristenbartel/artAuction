@@ -3,7 +3,7 @@ const router = express.Router();
 const { Users, Bids, Artworks } = require('../models');
 const brcypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-// const isValidToken = require('../middleware/isValidToken');
+const isValidToken = require('../middleware/isValidToken')
 require('dotenv').config();
 
 /* GET home page. */
@@ -23,7 +23,7 @@ router.get('/register', function(req, res, next) {
   //redirect to login
 });
 
-router.get('/auction', function(req, res, next) {
+router.get('/auction', isValidToken, function(req, res, next) {
   res.render('auction'); 
   // insert isValidUser middleware
   // form for making bid connected to POST
@@ -42,5 +42,18 @@ router.get('/about', function(req, res, next) {
   // address partial Header route issue
 });
 
+
+router.get('/profile/:id', isValidToken, async function(req, res, next) {
+  const {id} = req.params;
+
+  const user = await Users.findOne({
+    where:{
+      id: id
+    }
+    
+  })
+  res.render('profile', {name: user.username})
+})
+module.exports = router
 
 module.exports = router;
