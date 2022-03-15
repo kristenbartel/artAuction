@@ -27,47 +27,20 @@ router.post('/register', async (req, res, next) => {
 //Bid route works to submit bid
 
 router.post('/auction', isValidToken, async (req, res, next) => {
-  const { bidAmount } = req.body;
-
+  const { bidAmount, userID } = req.body;
+  console.log(bidAmount,userID)
   const submitBid = await Bids.create({
-    bidAmount
+    bidAmount,
+    userID
   })
+  console.log(submitBid)
   res.send('Thanks for your bid');
 
 
 
 })
 
-// Attempt 2 with userID
 
-// router.post('/auction/', isValidToken, async (req, res, next) => {
-//   const { bidAmount, userID } = req.body;
-
-//   const submitBid = await Bids.create({
-//     bidAmount,
-//     userID,
-//   })
-//   res.send('Thanks for your bid');
-// })
-
-
-
-
-// Attempt 3
-
-router.post('/auction/:id', isValidToken, async (req, res, next) => {
-  const {id} = req.params;
-
-  const { bidAmount } = req.body;
-  console.log('the bid amount', bidAmount)
-
-  const submitBid = await Bids.create({
-    
-      id:id,
-    bidAmount:bidAmount
-  })
-  res.send('Thanks for your bid');
-})
 
 
 router.post('/login', async function(req, res, next) {
