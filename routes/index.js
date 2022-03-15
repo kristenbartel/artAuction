@@ -23,18 +23,18 @@ router.get('/register', function(req, res, next) {
   //redirect to login
 });
 
-router.get('/auction', isValidToken, function(req, res, next) {
+router.get('/auction/', isValidToken, function(req, res, next) {
   res.render('auction'); 
   // insert isValidUser middleware
   // form for making bid connected to POST
 });
 
-router.get('/profile', function(req, res, next) {
-  res.render('profile');
-  // insert isValidUser middleware
-  //specific to user- use destructuring for userID
-  // this will render all bids made
-});
+// router.get('/profile', function(req, res, next) {
+//   res.render('profile');
+//   // insert isValidUser middleware
+//   //specific to user- use destructuring for userID
+//   // this will render all bids made
+// });
 
 router.get('/about', function(req, res, next) {
   res.render('about'); 
@@ -52,7 +52,7 @@ router.get('/profile/:id', isValidToken, async function(req, res, next) {
     }
     
   })
-  res.render('profile', {name: user.username})
+  res.render('profile', {name: user.userName})
 })
 module.exports = router
 

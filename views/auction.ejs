@@ -7,5 +7,11 @@
     <%- include('partials/navbar-private') -%>
     <h1>Auction</h1>
     
+<form action="/users/auction" method="POST">
+    <input type="number" name="userID" value="<%= user.id %>">
+    <input type="number" name="bidAmount">
+    <button type="submit">Bid</button>
+</form>
+
 </body>
 </html>
