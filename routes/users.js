@@ -59,7 +59,7 @@ router.post('/art/:id', async function(req, res, next) {
     url: `https://api.artic.edu/api/v1/artworks/${id}`,
     headers: { }
   };
-
+  console.log("working")
   const artData = await axios(config)
     .then(function (response) {
     return response.data;
@@ -67,16 +67,15 @@ router.post('/art/:id', async function(req, res, next) {
   .catch(function (error) {
     console.log(error);
   });
-
+  
   const artImageID = artData.data.image_id;
-
   const addArtwork = await Artworks.create({
     artTitle: artData.data.title,
-    artDetails: artData.data.thumbnail.alt_text,
+    artDetails: `<ul><li><b>Title:</b>${artData.data.title}</li><li><b>Year:</b>${artData.data.date_display}</li><li><b>Description:</b>${artData.data.thumbnail.alt_text}</li></ul>`,
     artImage: `https://www.artic.edu/iiif/2/${artImageID}/full/843,/0/default.jpg`
     // title, artist_display, artwork_type_title, year,  date_start, thumbnail with alt_text
   })
-
+  console.log(artData)
   res.json(artData.data.title)
 });
 
