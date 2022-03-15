@@ -3,9 +3,10 @@ const router = express.Router();
 const { Users, Bids, Artworks } = require('../models');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-// const isValidToken = require('../middleware/isValidToken');
+const isValidToken = require('../middleware/isValidToken');
 require('dotenv').config();
 const saltRounds = bcrypt.genSaltSync(Number(process.env.SALT_FACTOR))
+
 
 
 
@@ -22,6 +23,25 @@ router.post('/register', async (req, res, next) => {
   })
   res.redirect('/login');
 })
+
+//Bid route works to submit bid
+
+router.post('/auction', isValidToken, async (req, res, next) => {
+  const { bidAmount, userID } = req.body;
+  console.log(bidAmount,userID)
+  const submitBid = await Bids.create({
+    bidAmount,
+    userID
+  })
+  console.log(submitBid)
+  res.send('Thanks for your bid');
+
+
+
+})
+
+
+
 
 router.post('/login', async function(req, res, next) {
   const { userName, password} = req.body;

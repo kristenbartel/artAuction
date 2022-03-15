@@ -24,6 +24,26 @@ router.get('/register', function(req, res, next) {
   //redirect to login
 });
 
+router.get('/auction/', isValidToken, function(req, res, next) {
+  res.render('auction'); 
+  // insert isValidUser middleware
+  // form for making bid connected to POST
+});
+
+// router.get('/profile', function(req, res, next) {
+//   res.render('profile');
+//   // insert isValidUser middleware
+//   //specific to user- use destructuring for userID
+//   // this will render all bids made
+// });
+
+router.get('/about', function(req, res, next) {
+  res.render('about'); 
+  // insert isValidUser middleware?? 
+  // address partial Header route issue
+});
+
+
 router.get('/auction/:id', isValidToken, async function(req, res, next) {
   const {id} = req.params;
   const user = await Users.findOne({
