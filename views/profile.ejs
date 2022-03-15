@@ -4,7 +4,88 @@
     <%- include('partials/head') -%>
 </head>
 <body>
-    <%- include('partials/navbar-private') -%>
+<!-- nav bar -->
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="/">ArtAuction</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <div class="navbar-nav">
+        <!-- <a class="nav-item nav-link active" href="/">Home <span class="sr-only"></span></a> -->
+        <a class="nav-item nav-link" href="/auction/<%= user.id %>">Auction</a>
+        <a class="nav-item nav-link" href="/profile/user.id">Profile</a>
+        <a class="nav-item nav-link" href="/about">About</a>
+      </div>
+    </div>
+  </nav>
+
+  
+    <section class="vh-100 bg-image" style="background-image: url('https://mdbcdn.b-cdn.net/img/Photos/new-templates/search-box/img4.webp');">
+        <div class="mask d-flex align-items-center h-100 gradient-custom-3">
+          <div class="container h-100">
+            <div class="row d-flex justify-content-center align-items-center h-100">
+              <div class="col-12 col-md-9 col-lg-7 col-xl-6">
+                <div class="card" style="border-radius: 15px;">
+                  <div class="card-body p-5">
+                    <h2 class="text-uppercase text-center mb-5">Current Bids</h2>
+                        <table class="table table-hover">
+                            <thead>
+                              <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Title</th>
+                                <th scope="col">Artist</th>
+                                <th scope="col">Bid Amount</th>
+                                <th scope="col">Details</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr>
+                                <th scope="row">1</th>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <!-- Button for Modal of userBids -->
+                                <td>
+                                    <button type="" class="card-button btn btn-light btn-lg" data-toggle="modal" data-target="#myModal">Bid</button>
+                                    <div id="myModal" class="modal" role="dialog">
+                                        <div class="modal-dialog">
+                                            <!-- Modal content-->
+                                            <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h4 class="modal-title">Enter Bid</h4>
+                                            </div>
+                                            <img src="https://generative-placeholders.glitch.me/image?width=600&height=300&style=tiles">
+                                            <div class="modal-body">
+                                                <p>Artist:</p>
+                                                <p>Title:</p>
+                                                <p>Description:</p>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <form action="submit">
+                                                    <h5>Bid: ID</h5>
+                                                    <input type="text" name="">
+                                                    <button type="button" class="btn btn-default" data-dismiss="modal">Submit</button>
+                                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                </form>
+                                              </div>
+                                            </div>
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                        </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
     <h1>Profile</h1>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
 </body>
 </html>
