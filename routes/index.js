@@ -1,8 +1,9 @@
 const express = require('express');
 const router = express.Router();
 const { Users, Bids, Artworks } = require('../models');
-const brcypt = require('bcrypt');
-const jwt = require('jsonwebtoken');
+// const brcypt = require('bcrypt');
+// const jwt = require('jsonwebtoken');
+// const axios = require('axios');
 const isValidToken = require('../middleware/isValidToken')
 require('dotenv').config();
 
@@ -43,17 +44,33 @@ router.get('/about', function(req, res, next) {
 });
 
 
-router.get('/profile/:id', isValidToken, async function(req, res, next) {
+router.get('/auction/:id', isValidToken, async function(req, res, next) {
   const {id} = req.params;
-
   const user = await Users.findOne({
     where:{
       id: id
-    }
-    
+    },
   })
-  res.render('profile', {name: user.userName})
+  console.log(user);
+  // res.cookie("token", token) 
+  res.render('auction', {user: user})
+});
+
+router.get('/profile/:id', isValidToken, async function(req, res, next) {
+  const {id} = req.params;
+  const user = await Users.findOne({
+    where:{
+      id: id
+    },
+  })
+ 
+  // res.cookie("token", token)
+  res.render('profile', {user: user})
 })
-module.exports = router
+
+router.get('/about', function(req, res, next) {
+  res.render('about'); 
+  // address partial Header route issue
+});
 
 module.exports = router;
