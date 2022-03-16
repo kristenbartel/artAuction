@@ -5,6 +5,7 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const isValidToken = require('../middleware/isValidToken');
 require('dotenv').config();
+const axios = require('axios');
 const saltRounds = bcrypt.genSaltSync(Number(process.env.SALT_FACTOR))
 
 
@@ -72,7 +73,7 @@ router.post('/login', async function(req, res, next) {
 });
 
 router.post('/art/:id', async function(req, res, next) {
-  
+
   const id = req.params.id
   var config = {
     method: 'get',
@@ -87,16 +88,14 @@ router.post('/art/:id', async function(req, res, next) {
   .catch(function (error) {
     console.log(error);
   });
-
+  
   const artImageID = artData.data.image_id;
-
   const addArtwork = await Artworks.create({
     artTitle: artData.data.title,
-    artDetails: artData.data.thumbnail.alt_text,
+    artDetails: `<ul><li><b>Artist:</b>${artData.data.artist_title}</li><li><b>Year:</b>${artData.data.date_display}</li><li><b>Description:</b>${artData.data.thumbnail.alt_text}</li></ul>`,
     artImage: `https://www.artic.edu/iiif/2/${artImageID}/full/843,/0/default.jpg`
     // title, artist_display, artwork_type_title, year,  date_start, thumbnail with alt_text
   })
-
   res.json(artData.data.title)
 });
 
