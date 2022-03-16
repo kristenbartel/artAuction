@@ -8,13 +8,10 @@ require('dotenv').config();
 const axios = require('axios');
 const saltRounds = bcrypt.genSaltSync(Number(process.env.SALT_FACTOR))
 
-
-
-
+// POST register user to Users table
 router.post('/register', async (req, res, next) => {
   const { firstName, lastName, email, userName, password} = req.body;
   const hash = bcrypt.hashSync(password, saltRounds)
-
   const createUser = await Users.create({
     firstName,
     lastName,
@@ -25,25 +22,7 @@ router.post('/register', async (req, res, next) => {
   res.redirect('/login');
 })
 
-//Bid route works to submit bid
-
-router.post('/auction', isValidToken, async (req, res, next) => {
-  const { bidAmount, userID } = req.body;
-  console.log(bidAmount,userID)
-  const submitBid = await Bids.create({
-    bidAmount,
-    userID
-  })
-  console.log(submitBid)
-  res.send('Thanks for your bid');
-
-
-
-})
-
-
-
-
+//  POST user login to Users table
 router.post('/login', async function(req, res, next) {
   const { userName, password} = req.body;
   const user = await Users.findOne ({
@@ -51,6 +30,7 @@ router.post('/login', async function(req, res, next) {
       userName : userName,
     }
   }); //hashing
+
   if(user){
     const comparePass = bcrypt.compareSync(password,user.password)
     if (comparePass){
@@ -63,7 +43,6 @@ router.post('/login', async function(req, res, next) {
       );
       res.cookie("token", token)
       res.redirect(`/auction/${user.id}`);
-      // res.redirect(`/auction`);
     } else {
       res.send('Sorry, wrong username/password')
     }
@@ -72,8 +51,8 @@ router.post('/login', async function(req, res, next) {
   }
 });
 
+// POST artworks to Artworks table
 router.post('/art/:id', async function(req, res, next) {
-
   const id = req.params.id
   var config = {
     method: 'get',
@@ -88,15 +67,28 @@ router.post('/art/:id', async function(req, res, next) {
   .catch(function (error) {
     console.log(error);
   });
-  
+
   const artImageID = artData.data.image_id;
   const addArtwork = await Artworks.create({
     artTitle: artData.data.title,
     artDetails: `<ul><li><b>Artist:</b>${artData.data.artist_title}</li><li><b>Year:</b>${artData.data.date_display}</li><li><b>Description:</b>${artData.data.thumbnail.alt_text}</li></ul>`,
     artImage: `https://www.artic.edu/iiif/2/${artImageID}/full/843,/0/default.jpg`
-    // title, artist_display, artwork_type_title, year,  date_start, thumbnail with alt_text
   })
   res.json(artData.data.title)
+  // res.send(successful post to Artworks table)
 });
+
+// POST user bid to Bids table
+router.post('/auction', isValidToken, async (req, res, next) => {
+  const { bidAmount, userID } = req.body;
+  console.log(bidAmount,userID)
+  const submitBid = await Bids.create({
+    bidAmount,
+    userID
+  })
+  console.log(submitBid)
+  res.send('Thanks for your bid');
+  // res.redirect('profile')
+})
 
 module.exports = router;

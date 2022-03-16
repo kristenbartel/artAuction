@@ -7,43 +7,23 @@ const { Users, Bids, Artworks } = require('../models');
 const isValidToken = require('../middleware/isValidToken')
 require('dotenv').config();
 
-/* GET home page. */
+// GET landing page
 router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
   //once clicked redirect to login
 });
 
-router.get('/login', function(req, res, next) {
-  res.render('login');
-  //if not registered take to register
-  //middleware and redirect to auction
-});
-
+// GET register view
 router.get('/register', function(req, res, next) {
   res.render('register');
-  //redirect to login
 });
 
-router.get('/auction/', isValidToken, function(req, res, next) {
-  res.render('auction'); 
-  // insert isValidUser middleware
-  // form for making bid connected to POST
+// GET login view
+router.get('/login', function(req, res, next) {
+  res.render('login');
 });
 
-// router.get('/profile', function(req, res, next) {
-//   res.render('profile');
-//   // insert isValidUser middleware
-//   //specific to user- use destructuring for userID
-//   // this will render all bids made
-// });
-
-router.get('/about', function(req, res, next) {
-  res.render('about'); 
-  // insert isValidUser middleware?? 
-  // address partial Header route issue
-});
-
-
+// GET auction view as validUser
 router.get('/auction/:id', isValidToken, async function(req, res, next) {
   const {id} = req.params;
   const user = await Users.findOne({
@@ -51,11 +31,10 @@ router.get('/auction/:id', isValidToken, async function(req, res, next) {
       id: id
     },
   })
-  console.log(user);
-  // res.cookie("token", token) 
   res.render('auction', {user: user})
 });
 
+// GET profile view as validUser
 router.get('/profile/:id', isValidToken, async function(req, res, next) {
   const {id} = req.params;
   const user = await Users.findOne({
@@ -63,14 +42,13 @@ router.get('/profile/:id', isValidToken, async function(req, res, next) {
       id: id
     },
   })
- 
-  // res.cookie("token", token)
   res.render('profile', {user: user})
 })
 
+// GET about view
 router.get('/about', function(req, res, next) {
   res.render('about'); 
-  // address partial Header route issue
 });
 
+// NOTE gallery admin-- a route for them to update Artworks table
 module.exports = router;
