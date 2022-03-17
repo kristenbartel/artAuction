@@ -1,0 +1,216 @@
+    <!-- artwork.forEach(){
+Auction card and modal
+    } -->
+    <div class="container" style="margin-top:50px;">
+        <div class="row">
+            <div class="col-md-3">
+                
+                <div class="card-sl">
+                    <div class="card-image">
+                        <img src="https://generative-placeholders.glitch.me/image?width=600&height=300&style=tiles">
+                    </div>
+                    <a class="card-action" href="" onclick="updateLikes()"><i class="fa fa-heart"></i></a>
+                    <div class="card-heading">
+                        Artwork Title: 
+                    </div>
+                    <div class="card-text">
+                        Artwork Details:
+                    </div>
+                    <div class="card-text">
+                        Current Bid:
+                    </div>
+                    <div class="card-text">
+                         Bid:
+                    </div>
+
+                    <form action="/users/auction" method="POST">
+                        <h5>Enter Bid</h5>
+                        <input type="number" name="userID" value="<%= user.id %>">
+                        <input type="number" name="bidAmount">
+                        <button type="submit" class="btn btn-default" data-dismiss="modal">Bid</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </form>
+
+                       <!-- Trigger the modal with a button -->
+                       <button type="" class="card-button btn btn-light btn-lg" data-toggle="modal" data-target="#myModal">Bid</button>
+
+                       <!-- Modal -->
+                    <div id="myModal" class="modal" role="dialog">
+                        <div class="modal-dialog">
+
+                           <!-- Modal content-->
+                           <div class="modal-content">
+
+                            <div class="modal-header">
+                                    <h4 class="modal-title">Enter Bid</h4>
+                                </div>
+                                <img src="https://generative-placeholders.glitch.me/image?width=600&height=300&style=tiles">
+
+                                <div class="modal-body">
+                                    <p>Artist:</p>
+                                    <p>Title:</p>
+                                    <p>Description:</p>
+                                </div>
+                                        <!-- <div class="modal-footer">
+                                            <form action="/auction" method="POST">
+                                                <h5>Enter Bid</h5>
+                                                <input type="number" name="userID" value="<%= user.id %>">
+                                                <input type="number" name="bidAmount">
+                                                <button type="submit" class="btn btn-default" data-dismiss="modal">Bid</button>
+                                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                            </form>
+                                        </div> -->
+                           </div>
+                        </div> 
+                    </div> 
+                </div>
+            </div>
+        </div>  
+    </div> 
+
+            <!-- <div class="card" style="width: 18rem;">
+        <img src="<%= piece.artImage %>" class="card-img-top" alt="...">
+            <div class="card-body">
+              <h4 class="card-title"><%= piece.artTitle %></h4>
+              <h6><%= piece.artDetails %></h6>
+              <button href="" class="btn">Details</button>
+            </div>
+        </div> -->
+
+<!-- bid form -->
+                            <!-- <form action="/users/auction" method="POST">
+                        <h5>Enter Bid</h5>
+                        <input type="number" name="userID" value="<%= user.id %>">
+                        <input type="number" name="bidAmount">
+                        <button type="submit" class="btn btn-default" data-dismiss="modal">Bid</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </form> -->
+
+
+                    <div class="container" style="margin-top:50px;">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="card-sl">
+                                    <div class="card-image">
+                                        <img
+                                            src="https://images.pexels.com/photos/1149831/pexels-photo-1149831.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" />
+                                    </div>
+                
+                                    <a class="card-action" href="#"><i class="fa fa-heart"></i></a>
+                                    <div class="card-heading">
+                                        Audi Q8
+                                    </div>
+                                    <div class="card-text">
+                                        Audi Q8 is a full-size luxury crossover SUV coupé made by Audi that was launched in 2018.
+                                    </div>
+                                    <div class="card-text">
+                                        $67,400
+                                    </div>
+                                    <a href="#" class="card-button"> Purchase</a>
+                                </div>
+                            </div>
+                        </div>  
+
+                        <div class="card-group">
+                        <% art.forEach(piece => { %>
+                            <div class="card">
+                              <img src="<%= piece.artImage %>" class="card-img-top" alt="...">
+                              <div class="card-body">
+                                <h5 class="card-title"><%= piece.artTitle %></h5>
+                                <p class="card-text"><%= piece.artDetails %></p>
+                                <p class="card-text"><small class="text-muted">current bid</small></p>
+                                <!-- bid form -->
+                                <form action="/auction" method="POST">
+                                    <input type="number" name="userID" value="<%= user.id %>">
+                                    <label for="bidAmount">enter bid</label>
+                                    <input type="number" name="bidAmount">
+                                    <button type="submit" class="btn btn-default">Submit Bid</button>
+                                </form>
+                                <!-- modal trigger button -->
+                                <button type="" class="card-button btn btn-light btn-lg" data-toggle="modal" data-target="#myModal">Details</button>
+                                <!-- modal -->
+                                <div id="myModal" class="modal" role="dialog">
+                                    <div class="modal-dialog">
+                                    <!-- Modal content-->
+                                    <div class="modal-content">
+                                     <div class="modal-header">
+                                           <h4 class="modal-title"><%= piece.artTitle %></h4>
+                                    </div>
+                                    <img src="<%= piece.artImage %>">
+                                    <div class="modal-body">
+                                            <p><%= piece.artDetails %></p>
+                                    </div>
+                                    <div class="modal-footer"></div>
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                    </div>
+                                    </div>
+                                </div> 
+                              </div>
+                            </div>
+                        </div>
+                        <% }) %>
+
+<!-- working card -->
+                        <% art.forEach(piece => { %>
+                            <div class="container" style="margin-top:50px;">
+                               <div class="row">
+                                   <div class="col-md-3">
+                                   <div class="card-sl">
+                                       <div class="card-image">
+                                           <img src="<%= piece.artImage %>">
+                                       </div>
+                                       <!-- <a class="card-action" href="" onclick="updateLikes()"><i class="fa fa-heart"></i></a> -->
+                                       <div class="card-heading">
+                                           Artwork Title: <%= piece.artTitle %>
+                                       </div>
+                                       <div class="card-text">
+                                           Artwork Details: <%= piece.artDetails %>
+                                       </div>
+                                       <div class="card-text">
+                                           Current Bid:
+                                       </div>
+                                       
+                                           <form action="/auction" method="POST">
+                                               <h5>Enter Bid</h5>
+                                               <input type="number" name="userID" value="<%= user.id %>">
+                                               <input type="number" name="bidAmount">
+                                               <button type="submit" class="btn btn-default">Bid</button>
+                                           </form>
+                                       
+                                          <!-- Trigger the modal with a button -->
+                                          <button type="" class="card-button btn btn-light btn-lg" data-toggle="modal" data-target="#myModal">Details</button>
+                   
+                                          <!-- Modal -->
+                                       <div id="myModal" class="modal" role="dialog">
+                                           <div class="modal-dialog">
+                                              <!-- Modal content-->
+                                              <div class="modal-content">
+                                               <div class="modal-header">
+                                                       <h4 class="modal-title"><%= piece.artTitle %></h4>
+                                                   </div>
+                                                   <img src="<%= piece.artImage %>">
+                                                   <div class="modal-body">
+                                                       <p><%= piece.artDetails %></p>
+                                                   </div>
+                                                   <div class="modal-footer"></div>
+                                                   <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                               </div>
+                                           </div>
+                                       </div> 
+                                       </div> 
+                                   </div>
+                               </div>
+                           </div>  
+                       </div> 
+                       <% }) %>
+
+
+                       <div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel">
+                        <div class="carousel-inner">
+                          <% art.forEach(piece => { %>
+                          <div class="carousel-item active">
+                            <img class="d-block w-100" src="<%= piece.artImage %>" alt="First slide">
+                          </div>
+                          <% }) %>
+                        </div>
+                      </div>

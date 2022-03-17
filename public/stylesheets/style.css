@@ -1,11 +1,9 @@
 body {
-  padding: 50px;
+  padding: 50px !important;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  /* font-family: Varela Round; */
+  background: #f1f1f1 !important;
 }
-
-/* a {
-  color: #00B7FF;
-} */
 
 .gradient-custom-3 {
   /* fallback for old browsers */
@@ -18,29 +16,20 @@ body {
   background: linear-gradient(to right, rgba(132, 250, 176, 0.5), rgba(143, 211, 244, 0.5))
 }
 
-body {
-  font-family: Varela Round;
-  background: #f1f1f1;
-}
-
 a {
   text-decoration: none;
 }
 
 /* Card Styles */
 
-.card-sl {
-  border-radius: 8px;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+.card-image-top {
+  width: 20vw;
+  height: 15vw;
+  object-fit: cover;
+  /* border-radius: 8px 8px 0px 0; */
 }
 
-.card-image img {
-  max-height: 100%;
-  max-width: 100%;
-  border-radius: 8px 8px 0px 0;
-}
-
-.card-action {
+/* .card-action {
   position: relative;
   float: right;
   margin-top: -25px;
@@ -88,9 +77,8 @@ a {
   text-decoration: none;
   background-color: #1D3461;
   color: #fff;
-
-}
-
+ */
+/* } */
 
 @-webkit-keyframes pulse {
   0% {
