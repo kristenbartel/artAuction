@@ -71,7 +71,9 @@ router.post('/art/:id', async function(req, res, next) {
   const artImageID = artData.data.image_id;
   const addArtwork = await Artworks.create({
     artTitle: artData.data.title,
-    artDetails: `Artist:${artData.data.artist_title}${artData.data.date_display}${artData.data.thumbnail.alt_text}`,
+    artArtist: artData.data.artist_title,
+    artYear: artData.data.date_display,
+    artDetails: artData.data.thumbnail.alt_text,
     artImage: `https://www.artic.edu/iiif/2/${artImageID}/full/843,/0/default.jpg`
   })
   res.json(artData.data.title)

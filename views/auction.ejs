@@ -8,13 +8,15 @@
     <%- include('partials/navbar-private') -%>
     <h1>Auction</h1>
       <!-- auction cards -->
-        <div class="row row-cols-1 row-cols-md-2 g-4">
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-xl-4 g-4">
         <% art.forEach(piece => { %>
             <div class="col">
             <div class="card h-100">
               <img src="<%= piece.artImage %>" class="card-img-top" alt="...">
               <div class="card-body">
-                <h5 class="card-title"><%= piece.artTitle %></h5>
+                <h5 class="card-title"><%= piece.artArtist %></h5>
+                <p class="card-text"><%= piece.artTitle %></p>
+                <p class="card-text"><%= piece.artYear %></p>
                 <p class="card-text"><%= piece.artDetails %></p>
                 <p class="card-text"><small class="text-muted">current bid</small></p>
                 <div class="card-footer">
@@ -29,7 +31,7 @@
                 </div>
                 <!-- modal -->
                 <div id="myModal" class="modal" role="dialog">
-                    <div class="modal-dialog">
+                    <div class="modal-dialog modal-lg">
                     <!-- Modal content-->
                     <div class="modal-content">
                      <div class="modal-header">
