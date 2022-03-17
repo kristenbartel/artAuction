@@ -15,6 +15,8 @@ module.exports = (sequelize, DataTypes) => {
   }
   Artworks.init({
     artTitle: DataTypes.STRING,
+    artArtist: DataTypes.STRING,
+    artYear: DataTypes.STRING,
     artDetails: DataTypes.STRING,
     artImage: DataTypes.STRING,
     startingAmount: DataTypes.INTEGER

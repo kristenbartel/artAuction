@@ -30,7 +30,6 @@ router.post('/login', async function(req, res, next) {
       userName : userName,
     }
   }); //hashing
-
   if(user){
     const comparePass = bcrypt.compareSync(password,user.password)
     if (comparePass){
@@ -59,7 +58,6 @@ router.post('/art/:id', async function(req, res, next) {
     url: `https://api.artic.edu/api/v1/artworks/${id}`,
     headers: { }
   };
-
   const artData = await axios(config)
     .then(function (response) {
     return response.data;
@@ -71,7 +69,9 @@ router.post('/art/:id', async function(req, res, next) {
   const artImageID = artData.data.image_id;
   const addArtwork = await Artworks.create({
     artTitle: artData.data.title,
-    artDetails: `Artist:${artData.data.artist_title}${artData.data.date_display}${artData.data.thumbnail.alt_text}`,
+    artArtist: artData.data.artist_title,
+    artYear: artData.data.date_display,
+    artDetails: artData.data.thumbnail.alt_text,
     artImage: `https://www.artic.edu/iiif/2/${artImageID}/full/843,/0/default.jpg`
   })
   res.json(artData.data.title)
@@ -80,12 +80,14 @@ router.post('/art/:id', async function(req, res, next) {
 
 // POST user bid to Bids table
 router.post('/auction', isValidToken, async (req, res, next) => {
-  const { bidAmount, userID } = req.body;
+  const { bidAmount, userID, artID } = req.body;
   const {id} = req.params;
+
   console.log(bidAmount,userID)
   const submitBid = await Bids.create({
     bidAmount,
-    userID
+    userID,
+    artID
   })
   // const {id} = req.params;
   const user = await Bids.findOne({
@@ -101,5 +103,26 @@ router.post('/auction', isValidToken, async (req, res, next) => {
   // // res.send('Thanks for your bid');
   // res.render('profile', {Users: user}) // need to fix
 })
+
+// DELETE a users bid from Bids Table via users profile page
+//do we need req.params to know it is the users profile?
+    // router.delete('/profile', isValidToken, async (req, res, next) => {
+    //   const {aBid} = req.body;
+    //   const withdrawBid = await Bids.destroy({
+    //     where: {
+    //       aBid: aBid
+    //     }
+    //   })
+    // })
+
+// UPDATE a users bid from Bids Table via users profile page 
+// do we need req.params to know it is the users profile?
+    // router.update('/profile', isValidToken, async (req, res, next) => {
+    //   const {aBidID} = req.body; //a specific bidID is needed here
+    //   const withdrawBid = await Bids.update(
+    //     { bidAmount: "555" }, 
+    //     { where: { aBidID: aBidID }
+    //   })
+    // })
 
 module.exports = router;
