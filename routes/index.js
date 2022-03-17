@@ -35,7 +35,14 @@ router.get('/auction/:id', isValidToken, async function(req, res, next) {
   })
   const art = await Artworks.findAll({
   })
-  res.render('auction', {user: user, art: art})
+      // const highBid = await Bids.max('bidAmount')
+      // const highBid = await Bids.findAll({
+      //   where: {
+      //     artID: artID
+      //   }
+      // })
+      // max('bidAmount')
+  res.render('auction', {user: user, art: art })
 });
 
 // GET profile view as validUser
@@ -46,6 +53,8 @@ router.get('/profile/:id', isValidToken, async function(req, res, next) {
       id: id
     },
   })
+
+
   res.render('profile', {user: user})
 })
 
