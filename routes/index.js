@@ -46,6 +46,8 @@ router.get('/profile/:id', isValidToken, async function(req, res, next) {
       id: id
     },
   })
+
+
   res.render('profile', {user: user})
 })
 
