@@ -30,7 +30,6 @@ router.post('/login', async function(req, res, next) {
       userName : userName,
     }
   }); //hashing
-
   if(user){
     const comparePass = bcrypt.compareSync(password,user.password)
     if (comparePass){
@@ -59,7 +58,6 @@ router.post('/art/:id', async function(req, res, next) {
     url: `https://api.artic.edu/api/v1/artworks/${id}`,
     headers: { }
   };
-
   const artData = await axios(config)
     .then(function (response) {
     return response.data;
@@ -82,15 +80,37 @@ router.post('/art/:id', async function(req, res, next) {
 
 // POST user bid to Bids table
 router.post('/auction', isValidToken, async (req, res, next) => {
-  const { bidAmount, userID } = req.body;
+  const { bidAmount, userID, artID } = req.body;
   console.log(bidAmount,userID)
   const submitBid = await Bids.create({
     bidAmount,
-    userID
+    userID,
+    artID
   })
   console.log(submitBid)
   res.send('Thanks for your bid');
   // res.redirect('profile')
 })
+
+// DELETE a users bid from Bids Table via users profile page
+//do we need req.params to know it is the users profile?
+    // router.delete('/profile', isValidToken, async (req, res, next) => {
+    //   const {aBid} = req.body;
+    //   const withdrawBid = await Bids.destroy({
+    //     where: {
+    //       aBid: aBid
+    //     }
+    //   })
+    // })
+
+// UPDATE a users bid from Bids Table via users profile page 
+// do we need req.params to know it is the users profile?
+    // router.update('/profile', isValidToken, async (req, res, next) => {
+    //   const {aBidID} = req.body; //a specific bidID is needed here
+    //   const withdrawBid = await Bids.update(
+    //     { bidAmount: "555" }, 
+    //     { where: { aBidID: aBidID }
+    //   })
+    // })
 
 module.exports = router;

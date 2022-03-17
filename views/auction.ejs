@@ -18,11 +18,12 @@
                 <p class="card-text"><%= piece.artTitle %></p>
                 <p class="card-text"><%= piece.artYear %></p>
                 <p class="card-text"><%= piece.artDetails %></p>
-                <p class="card-text"><small class="text-muted">current bid</small></p>
+                <p class="card-text"><small class="text-muted">High Bid:</small></p>
                 <div class="card-footer">
                 <!-- bid form -->
                 <form action="/users/auction" method="POST" class="form-group">
                     <input type="hidden" name="userID" value="<%= user.id %>">
+                    <input type="hidden" name="artID" value="<%= piece.id %>">
                     <input type="number" name="bidAmount" placeholder="enter bid" class="form-control">
                     <button type="submit" class="btn btn-default btn-dark">Submit Bid</button>
                 </form>
