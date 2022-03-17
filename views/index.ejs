@@ -5,6 +5,7 @@
 </head>
   <body>
  <%- include('partials/navbar-public') -%>
+ <br>
 <h1>Auction Preview</h1>
 <div id="carousel-auctionPreview" class="carousel slide carousel-fade z-depth-1-half" data-ride="carousel">
   <div class="carousel-inner" role="listbox"></div>
@@ -15,7 +16,7 @@
     <% art.forEach(piece => { %>
       <div class="carousel-item">
         <div class="view">
-          <img class="d-block w-100" src="<%= piece.artImage %>" alt="Second slide">
+          <img class="d-block w-100 h-50" src="<%= piece.artImage %>" alt="Second slide">
         </div>
         <div class="carousel-caption">
           <h3 class="h3-responsive"><%= piece.artTitle %></h3>
@@ -23,7 +24,7 @@
         </div>
       </div>
     <% }) %>
-    <div class="controls">
+    
       <a class="carousel-control-prev" href="#carousel-auctionPreview" role="button" data-slide="prev">
         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
         <span class="sr-only"></span>
@@ -32,7 +33,7 @@
         <span class="carousel-control-next-icon" aria-hidden="true"></span>
         <span class="sr-only"></span>
       </a>
-    </div>
+    
 </div>
 
   </body>
