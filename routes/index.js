@@ -8,8 +8,10 @@ const isValidToken = require('../middleware/isValidToken')
 require('dotenv').config();
 
 // GET landing page
-router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
+router.get('/', async function(req, res, next) {
+  const art = await Artworks.findAll({
+  })
+  res.render('index', {art:art});
   //once clicked redirect to login
 });
 
@@ -29,9 +31,11 @@ router.get('/auction/:id', isValidToken, async function(req, res, next) {
   const user = await Users.findOne({
     where:{
       id: id
-    },
+    }
   })
-  res.render('auction', {user: user})
+  const art = await Artworks.findAll({
+  })
+  res.render('auction', {user: user, art: art})
 });
 
 // GET profile view as validUser
