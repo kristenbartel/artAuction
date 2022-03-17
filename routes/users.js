@@ -81,15 +81,27 @@ router.post('/art/:id', async function(req, res, next) {
 // POST user bid to Bids table
 router.post('/auction', isValidToken, async (req, res, next) => {
   const { bidAmount, userID, artID } = req.body;
+  const {id} = req.params;
+
   console.log(bidAmount,userID)
   const submitBid = await Bids.create({
     bidAmount,
     userID,
     artID
   })
-  console.log(submitBid)
-  res.send('Thanks for your bid');
-  // res.redirect('profile')
+  // const {id} = req.params;
+  const user = await Bids.findOne({
+    where:{ 
+      userID: userID
+    },
+  })
+  res.redirect(`/profile/${user.userID}`,)
+
+
+  // res.redirect(`/profile/${user.id}`) // keep working
+
+  // // res.send('Thanks for your bid');
+  // res.render('profile', {Users: user}) // need to fix
 })
 
 // DELETE a users bid from Bids Table via users profile page
