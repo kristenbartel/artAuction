@@ -63,5 +63,9 @@ router.get('/about', function(req, res, next) {
   res.render('about'); 
 });
 
+router.get('/admin', function(req, res, next) {
+  res.render('admin'); 
+});
+
 // NOTE gallery admin-- a route for them to update Artworks table
 module.exports = router;

@@ -51,11 +51,11 @@ router.post('/login', async function(req, res, next) {
 });
 
 // POST artworks to Artworks table
-router.post('/art/:id', async function(req, res, next) {
-  const id = req.params.id
+router.post('/art', async function(req, res, next) {
+  const { artID, startingAmount } = req.body
   const config = {
     method: 'get',
-    url: `https://api.artic.edu/api/v1/artworks/${id}`,
+    url: `https://api.artic.edu/api/v1/artworks/${artID}`,
     headers: { }
   };
   const artData = await axios(config)
@@ -69,12 +69,13 @@ router.post('/art/:id', async function(req, res, next) {
   const artImageID = artData.data.image_id;
   const addArtwork = await Artworks.create({
     artTitle: artData.data.title,
+    artDetails: artData.data.thumbnail.alt_text,
+    artImage: `https://www.artic.edu/iiif/2/${artImageID}/full/843,/0/default.jpg`,
     artArtist: artData.data.artist_title,
     artYear: artData.data.date_display,
-    artDetails: artData.data.thumbnail.alt_text,
-    artImage: `https://www.artic.edu/iiif/2/${artImageID}/full/843,/0/default.jpg`
+    startingAmount: startingAmount
   })
-  res.json(artData.data.title)
+  res.send("Artwork added!")
   // res.send(successful post to Artworks table)
 });
 
