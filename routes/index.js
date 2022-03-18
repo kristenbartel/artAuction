@@ -1,10 +1,11 @@
 const express = require('express');
 const router = express.Router();
-const { Users, Bids, Artworks } = require('../models');
+const { Users, Bids, Artworks, sequelize } = require('../models');
 // const brcypt = require('bcrypt');
 // const jwt = require('jsonwebtoken');
 // const axios = require('axios');
-const isValidToken = require('../middleware/isValidToken')
+const isValidToken = require('../middleware/isValidToken');
+const { max } = require('pg/lib/defaults');
 require('dotenv').config();
 
 // GET landing page
@@ -28,21 +29,38 @@ router.get('/login', function(req, res, next) {
 // GET auction view as validUser
 router.get('/auction/:id', isValidToken, async function(req, res, next) {
   const {id} = req.params;
+  // const {artID} = req.body;
+  console.log(req.params)
   const user = await Users.findOne({
     where:{
       id: id
     }
   })
-  const art = await Artworks.findAll({
-  })
-      // const highBid = await Bids.max('bidAmount')
-      // const highBid = await Bids.findAll({
-      //   where: {
-      //     artID: artID
-      //   }
-      // })
-      // max('bidAmount')
-  res.render('auction', {user: user, art: art })
+
+  const art = await Bids.findAll({
+    attributes : [[sequelize.fn('max', sequelize.col('bidAmount')), 'highBid']],
+    include: [{model: Artworks}], 
+    group: ['Bids.id', 'Artworks.id'],
+    
+  });
+  console.log(JSON.stringify(art, null, 2));
+
+//   Artworks.findAll({
+
+    
+//   });
+//  const artItemIDArray = art.map(item => item.dataValues.id)
+//  console.log(artItemIDArray);
+
+//  const artItem = artItemIDArray.forEach(extractedArtId)
+//   const highBid = await
+//     Bids.max('bidAmount',
+//     {where: {
+//       artID : artItemID
+//    }}
+//    )
+// highBid: highBid
+  res.render('auction', {user: user, art: art})
 });
 
 // GET profile view as validUser
