@@ -96,13 +96,8 @@ router.post('/auction', isValidToken, async (req, res, next) => {
       userID: userID
     },
   })
+  //assuming there is a column for maBid in Artworks table---if user bid input is greater than maxBid from artworks table then UPDATE with user input
   res.redirect(`/profile/${user.userID}`,)
-
-
-  // res.redirect(`/profile/${user.id}`) // keep working
-
-  // // res.send('Thanks for your bid');
-  // res.render('profile', {Users: user}) // need to fix
 })
 
 // DELETE a users bid from Bids Table via users profile page

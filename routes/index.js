@@ -53,9 +53,30 @@ router.get('/profile/:id', isValidToken, async function(req, res, next) {
       id: id
     },
   })
+  const bidHistory = await Bids.findAll({
+    where: {
+      userID: user.id,
+    }
+  })
+console.log('line 62 is the users bidHistory', bidHistory)
+  let userArtworks = [];
+    bidHistory.forEach(dataItem => {
+      userArtworks.push(dataItem.artID)
+  })
+  console.log('line 67 is the users-bids-artworks', userArtworks);
 
-
-  res.render('profile', {user: user})
+  const artwork = await Artworks.findAll({
+      where: {
+        id: userArtworks //bidHistory.artID
+      } 
+    })
+    console.log('these are the users artworks:', artwork);
+              // console.log(user, bidHistory);
+              // const string = JSON.stringify(bidHistory);
+              // console.log(string);
+              // const parse = JSON.parse(string);
+              // console.log(parse);
+  res.render('profile', {user: user, bidHistory: bidHistory, artworks: artwork})
 })
 
 // GET about view
