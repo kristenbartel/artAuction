@@ -58,16 +58,16 @@ router.get('/profile/:id', isValidToken, async function(req, res, next) {
       userID: user.id,
     }
   })
-
+console.log('line 62 is the users bidHistory', bidHistory)
   let userArtworks = [];
     bidHistory.forEach(dataItem => {
       userArtworks.push(dataItem.artID)
   })
-  console.log(userArtworks);
+  console.log('line 67 is the users-bids-artworks', userArtworks);
 
   const artwork = await Artworks.findAll({
       where: {
-        id: userArtworks
+        id: userArtworks //bidHistory.artID
       } 
     })
     console.log('these are the users artworks:', artwork);
