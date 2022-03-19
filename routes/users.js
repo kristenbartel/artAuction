@@ -97,12 +97,6 @@ router.post('/auction', isValidToken, async (req, res, next) => {
     },
   })
   res.redirect(`/profile/${user.userID}`,)
-
-
-  // res.redirect(`/profile/${user.id}`) // keep working
-
-  // // res.send('Thanks for your bid');
-  // res.render('profile', {Users: user}) // need to fix
 })
 
 // DELETE a users bid from Bids Table via users profile page

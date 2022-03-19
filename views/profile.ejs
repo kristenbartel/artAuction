@@ -27,7 +27,7 @@
               <div class="col-12 col-md-9 col-lg-7 col-xl-6">
                 <div class="card" style="border-radius: 15px;">
                   <div class="card-body p-5">
-                    <h2 class="text-uppercase text-center mb-5">Current Bids</h2>
+                    <h2 class="text-uppercase text-center mb-5"><%= user.firstName %>'s Current Bids</h2>
                         <table class="table table-hover">
                             <thead>
                               <tr>
@@ -40,10 +40,11 @@
                             </thead>
                             <tbody>
                               <tr>
+                                <% bidHistory.forEach(userBid => { %>
                                 <th scope="row">1</th>
                                 <td></td>
                                 <td></td>
-                                <td></td>
+                                <td><%= userBid.bidAmount%></td>
                                 <!-- Button for Modal of userBids -->
                                 <td>
                                     <button type="" class="card-button btn btn-light btn-lg" data-toggle="modal" data-target="#myModal">Bid</button>
@@ -71,6 +72,7 @@
                                             </div>
                                 </td>
                               </tr>
+                              <% }) %>
                             </tbody>
                           </table>
                         </div>
