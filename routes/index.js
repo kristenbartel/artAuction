@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { Users, Bids, Artworks } = require('../models');
+const { Users, Bids, Artwork } = require('../models');
 // const brcypt = require('bcrypt');
 // const jwt = require('jsonwebtoken');
 // const axios = require('axios');
@@ -9,7 +9,7 @@ require('dotenv').config();
 
 // GET landing page
 router.get('/', async function(req, res, next) {
-  const art = await Artworks.findAll({
+  const art = await Artwork.findAll({
   })
   res.render('index', {art:art});
   //once clicked redirect to login
@@ -33,7 +33,7 @@ router.get('/auction/:id', isValidToken, async function(req, res, next) {
       id: id
     }
   })
-  const art = await Artworks.findAll({
+  const art = await Artwork.findAll({
   })
       // const highBid = await Bids.max('bidAmount')
       // const highBid = await Bids.findAll({
@@ -58,19 +58,19 @@ router.get('/profile/:id', isValidToken, async function(req, res, next) {
       userID: user.id,
     }
   })
-console.log('line 62 is the users bidHistory', bidHistory)
+// console.log('line 62 is the users bidHistory', bidHistory)
   let userArtworks = [];
     bidHistory.forEach(dataItem => {
       userArtworks.push(dataItem.artID)
   })
-  console.log('line 67 is the users-bids-artworks', userArtworks);
+  // console.log('line 67 is the users-bids-artworks', userArtworks);
 
-  const artwork = await Artworks.findAll({
+  const artwork = await Artwork.findAll({
       where: {
         id: userArtworks //bidHistory.artID
       } 
     })
-    console.log('these are the users artworks:', artwork);
+    // console.log('these are the users artworks:', artwork);
               // console.log(user, bidHistory);
               // const string = JSON.stringify(bidHistory);
               // console.log(string);
@@ -84,7 +84,13 @@ router.get('/about', function(req, res, next) {
   res.render('about'); 
 });
 
-router.get('/admin', function(req, res, next) {
+router.get('/admin', async function(req, res, next) {
+  // const {id} = req.params;
+  // const user = await Users.findOne({
+  //   where:{
+  //     id: id
+  //   }
+  // })
   res.render('admin'); 
 });
 
