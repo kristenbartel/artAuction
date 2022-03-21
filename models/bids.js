@@ -14,7 +14,7 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: 'userID',
         onDelete: 'CASCADE'
       });
-        Bids.belongsTo(models.Artworks, {
+        Bids.belongsTo(models.Artwork, {
         foreignKey: 'artID',
         onDelete: 'CASCADE'
       });
