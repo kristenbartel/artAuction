@@ -69,6 +69,7 @@ router.get('/profile/:id', isValidToken, async function(req, res, next) {
       where: {
         id: userArtworks //bidHistory.artID
       } 
+      //find one where 
     })
     // console.log('these are the users artworks:', artwork);
               // console.log(user, bidHistory);

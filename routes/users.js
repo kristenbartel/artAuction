@@ -114,14 +114,26 @@ router.post('/auction', isValidToken, async (req, res, next) => {
   const { bidAmount, userID, artID } = req.body;
   const {id} = req.params;
 
-  // console.log(bidAmount,userID)
+  // console.log(userID)
+
+//   async function updateOrCreate (model, where, newItem) {
+//     // First try to find the record
+//    const foundBid = await model.findOne({where: artID = artID});
+//    if (!foundBid) {
+//         // Item not found, create a new one
+//         const item = await Bids.create(bidAmount, userID, artID)
+//         return  {item, created: true};
+//     }
+//     // Found an item, update it
+//     const newBid = await Bids.update(newItem, {where});
+//     return {item, created: false};
+// }
   const submitBid = await Bids.create({
     bidAmount,
     userID,
     artID
   })
-  // const {id} = req.params;
-
+ 
   const user = await Bids.findOne({
     where:{ 
       userID: userID
@@ -136,10 +148,6 @@ router.post('/auction', isValidToken, async (req, res, next) => {
     await updateMaxBid.save();
     console.log('Check this out', updateMaxBid.id, updateMaxBid.maxBid)
     console.log("this is the info", updateMaxBid)
-
-
-
-  //assuming there is a column for maBid in Artworks table---if user bid input is greater than maxBid from artworks table then UPDATE with user input
   res.redirect(`/profile/${user.userID}`,)
 })
 
