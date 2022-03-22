@@ -6,6 +6,7 @@ const { Users, Bids, Artwork } = require('../models');
 // const axios = require('axios');
 const isValidToken = require('../middleware/isValidToken')
 require('dotenv').config();
+const {authUser} = require('../middleware/adminAuth')
 
 // GET landing page
 router.get('/', async function(req, res, next) {
@@ -84,7 +85,8 @@ router.get('/about', function(req, res, next) {
   res.render('about'); 
 });
 
-router.get('/admin', async function(req, res, next) {
+
+router.get('/admin/17', isValidToken, async function(req, res, next) {
   // const {id} = req.params;
   // const user = await Users.findOne({
   //   where:{

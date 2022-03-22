@@ -38,4 +38,16 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
+// Check for user
+function setUser(req, res, next) {
+  const id = req.params.id
+  if(id){
+    req.users = users.find(users => users.id === id)
+  }
+  console.log(id)
+  next()
+}
+
+app.use(setUser)
+
 module.exports = app;
