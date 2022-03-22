@@ -1,13 +1,10 @@
 const express = require('express');
 const router = express.Router();
 const { Users, Bids, Artwork } = require('../models');
-// const brcypt = require('bcrypt');
-// const jwt = require('jsonwebtoken');
-// const axios = require('axios');
 const isValidToken = require('../middleware/isValidToken')
 require('dotenv').config();
 
-// GET landing page
+// GET Landing Page view
 router.get('/', async function(req, res, next) {
   const art = await Artwork.findAll({
   })
@@ -15,17 +12,17 @@ router.get('/', async function(req, res, next) {
   //once clicked redirect to login
 });
 
-// GET register view
+// GET Register view
 router.get('/register', function(req, res, next) {
   res.render('register');
 });
 
-// GET login view
+// GET Login view
 router.get('/login', function(req, res, next) {
   res.render('login');
 });
 
-// GET auction view as validUser
+// GET Auction view as validUser
 router.get('/auction/:id', isValidToken, async function(req, res, next) {
   const {id} = req.params;
   const user = await Users.findOne({
@@ -35,17 +32,10 @@ router.get('/auction/:id', isValidToken, async function(req, res, next) {
   })
   const art = await Artwork.findAll({
   })
-      // const highBid = await Bids.max('bidAmount')
-      // const highBid = await Bids.findAll({
-      //   where: {
-      //     artID: artID
-      //   }
-      // })
-      // max('bidAmount')
   res.render('auction', {user: user, art: art })
 });
 
-// GET profile view as validUser
+// GET Profile view as validUser
 router.get('/profile/:id', isValidToken, async function(req, res, next) {
   const {id} = req.params;
   const user = await Users.findOne({
@@ -58,29 +48,20 @@ router.get('/profile/:id', isValidToken, async function(req, res, next) {
       userID: user.id,
     }
   })
-// console.log('line 62 is the users bidHistory', bidHistory)
   let userArtworks = [];
     bidHistory.forEach(dataItem => {
       userArtworks.push(dataItem.artID)
   })
-  // console.log('line 67 is the users-bids-artworks', userArtworks);
-
   const artwork = await Artwork.findAll({
       where: {
-        id: userArtworks //bidHistory.artID
+        id: userArtworks
       } 
-      //find one where 
+      
     })
-    // console.log('these are the users artworks:', artwork);
-              // console.log(user, bidHistory);
-              // const string = JSON.stringify(bidHistory);
-              // console.log(string);
-              // const parse = JSON.parse(string);
-              // console.log(parse);
   res.render('profile', {user: user, bidHistory: bidHistory, artworks: artwork})
 })
 
-// GET about view
+// GET About Us view
 router.get('/about', function(req, res, next) {
   res.render('about'); 
 });
@@ -95,5 +76,4 @@ router.get('/admin', async function(req, res, next) {
   res.render('admin'); 
 });
 
-// NOTE gallery admin-- a route for them to update Artworks table
 module.exports = router;

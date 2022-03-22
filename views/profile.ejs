@@ -4,8 +4,8 @@
     <%- include('partials/head') -%>
 </head>
 <body class="padding: 50px">
-<!-- nav bar -->
 
+<!-- nav bar -->
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <a class="navbar-brand" href="/">ArtAuction</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
@@ -13,13 +13,13 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
       <div class="navbar-nav">
-        <!-- <a class="nav-item nav-link active" href="/">Home <span class="sr-only"></span></a> -->
         <a class="nav-item nav-link" href="/auction/<%= user.id %>">Auction</a>
         <a class="nav-item nav-link" href="/profile/<%= user.id %>">Profile</a>
         <a class="nav-item nav-link" href="/about">About</a>
       </div>
     </div>
   </nav>
+<!-- User's Bid Ledger w Delete Button -->
     <section class="vh-100 bg-image" style="background-image: url('https://mdbcdn.b-cdn.net/img/Photos/new-templates/search-box/img4.webp');">
         <div class="mask d-flex align-items-center h-100 gradient-custom-3">
           <div class="container h-100">
