@@ -114,41 +114,51 @@ router.post('/auction', isValidToken, async (req, res, next) => {
   const { bidAmount, userID, artID } = req.body;
   const {id} = req.params;
 
-  // console.log(userID)
+  console.log('line 117', userID, artID)
 
-//   async function updateOrCreate (model, where, newItem) {
-//     // First try to find the record
-//    const foundBid = await model.findOne({where: artID = artID});
-//    if (!foundBid) {
-//         // Item not found, create a new one
-//         const item = await Bids.create(bidAmount, userID, artID)
-//         return  {item, created: true};
-//     }
-//     // Found an item, update it
-//     const newBid = await Bids.update(newItem, {where});
-//     return {item, created: false};
-// }
-  const submitBid = await Bids.create({
-    bidAmount,
-    userID,
-    artID
-  })
+  // const user = await Bids.findOne({
+  //   where:{ 
+  //     userID: userID
+  //   },
+  // })
+  // console.log("this is my user", user);
+
+   const foundBid = await Bids.findOne({where: {userID: userID, artID : artID}});
+    console.log(foundBid);
+
+  // function findUserBid() {
+  //   Bids.findOne({where: {userID: userID, artID : artID}});
+  // }
+  
+   if (!foundBid) {
+    const createBid =  await Bids.create({bidAmount, userID, artID});
+    } foundBid.bidAmount = bidAmount
+    await foundBid.save();
+
+    // const jane = await User.create({ name: "Jane" });
+    // console.log(jane.name); // "Jane"
+    // jane.name = "Ada";
+    // // the name is still "Jane" in the database
+    // await jane.save();
+    // // Now the name was updated to "Ada" in the database!
+
+
+  //   const submitBid =  Bids.create({
+  //   bidAmount,
+  //   userID,
+  //   artID
+  // })
  
-  const user = await Bids.findOne({
-    where:{ 
-      userID: userID
-    },
-  })
-
   const updateMaxBid = await Artwork.findOne({where: {id: artID}});
     if (!updateMaxBid) {
         throw Error(`Artwork not updated`);
     }
     updateMaxBid.maxBid = bidAmount;
     await updateMaxBid.save();
-    console.log('Check this out', updateMaxBid.id, updateMaxBid.maxBid)
-    console.log("this is the info", updateMaxBid)
-  res.redirect(`/profile/${user.userID}`,)
+    // console.log('Check this out', updateMaxBid.id, updateMaxBid.maxBid)
+    // console.log("this is the info", updateMaxBid)
+  res.redirect(`/profile/${foundBid.userID}`,)
+  
 })
 
 // DELETE a users bid from Bids Table via users profile page
