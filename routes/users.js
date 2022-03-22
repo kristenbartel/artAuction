@@ -51,7 +51,7 @@ router.post('/login', async function(req, res, next) {
   }
 });
 
-// POST artworks to Artworks table
+// POST to Artworks table - admin only
 router.post('/art', async function(req, res, next) {
   const { artID, startingAmount } = req.body
   const config = {
@@ -77,9 +77,10 @@ router.post('/art', async function(req, res, next) {
     startingAmount: startingAmount
   })
   res.send("Artwork added!")
-  // res.send(successful post to Artworks table)
+  // change this to a res.render admin view of all artworks in db
 });
 
+// POST DELETES to Artworks table - admin only
 router.post('/art/remove', async function(req, res, next) {
   const { artName } = req.body
   // const art = await Artwork.findOne({
@@ -109,59 +110,37 @@ router.post('/art/remove', async function(req, res, next) {
   res.send("Artwork deleted!")
 });
 
-// POST user bid to Bids table
+// POST Auction activity to Bids Table and Artworks Table
 router.post('/auction', isValidToken, async (req, res, next) => {
   const { bidAmount, userID, artID } = req.body;
-  const {id} = req.params;
-
-  // console.log(bidAmount,userID)
-  const submitBid = await Bids.create({
-    bidAmount,
-    userID,
-    artID
-  })
-  // const {id} = req.params;
-
-  const user = await Bids.findOne({
-    where:{ 
-      userID: userID
-    },
-  })
-
+  // creates or updates a user's Bid
+   const foundBid = await Bids.findOne({where: {userID: userID, artID : artID}});
+   if (!foundBid) {
+    const createBid =  await Bids.create({bidAmount, userID, artID});
+    } else {
+      foundBid.bidAmount = bidAmount; //first run throws error, second run takes
+      await foundBid.save();
+    } 
+  // updates Artworks maxBid
   const updateMaxBid = await Artwork.findOne({where: {id: artID}});
     if (!updateMaxBid) {
         throw Error(`Artwork not updated`);
     }
     updateMaxBid.maxBid = bidAmount;
     await updateMaxBid.save();
-    console.log('Check this out', updateMaxBid.id, updateMaxBid.maxBid)
-    console.log("this is the info", updateMaxBid)
-
-
-
-  //assuming there is a column for maBid in Artworks table---if user bid input is greater than maxBid from artworks table then UPDATE with user input
-  res.redirect(`/profile/${user.userID}`,)
+  res.redirect(`/profile/${userID}`)
+  
 })
 
-// DELETE a users bid from Bids Table via users profile page
-//do we need req.params to know it is the users profile?
-    // router.delete('/profile', isValidToken, async (req, res, next) => {
-    //   const {aBid} = req.body;
-    //   const withdrawBid = await Bids.destroy({
-    //     where: {
-    //       aBid: aBid
-    //     }
-    //   })
-    // })
-
-// UPDATE a users bid from Bids Table via users profile page 
-// do we need req.params to know it is the users profile?
-    // router.update('/profile', isValidToken, async (req, res, next) => {
-    //   const {aBidID} = req.body; //a specific bidID is needed here
-    //   const withdrawBid = await Bids.update(
-    //     { bidAmount: "555" }, 
-    //     { where: { aBidID: aBidID }
-    //   })
-    // })
+router.post('/profile', async function(req, res, next) {
+  const {id} = req.params;
+  const { bidID, userID} = req.body;
+  const deleteBid = await Bids.destroy({
+    where : {
+      id: bidID
+    }
+  })
+  res.redirect(`/profile/${userID}`)
+});
 
 module.exports = router;
