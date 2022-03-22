@@ -117,8 +117,10 @@ router.post('/auction', isValidToken, async (req, res, next) => {
    const foundBid = await Bids.findOne({where: {userID: userID, artID : artID}});
    if (!foundBid) {
     const createBid =  await Bids.create({bidAmount, userID, artID});
-    } foundBid.bidAmount = bidAmount
-    await foundBid.save();
+    } else {
+      foundBid.bidAmount = bidAmount; //first run throws error, second run takes
+      await foundBid.save();
+    } 
   // updates Artworks maxBid
   const updateMaxBid = await Artwork.findOne({where: {id: artID}});
     if (!updateMaxBid) {
@@ -126,8 +128,20 @@ router.post('/auction', isValidToken, async (req, res, next) => {
     }
     updateMaxBid.maxBid = bidAmount;
     await updateMaxBid.save();
-  res.redirect(`/profile/${foundBid.userID}`,)
+  res.redirect(`/profile/${userID}`)
   
 })
+
+router.post('/profile', async function(req, res, next) {
+  const {id} = req.params;
+  const { bidID } = req.body;
+  const deleteBid = await Bids.destroy({
+    where : {
+      id: bidID
+    }
+  })
+  res.send('bid deleted!');
+  // res.redirect(`/profile/${id}`)
+});
 
 module.exports = router;

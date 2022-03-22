@@ -56,7 +56,6 @@ router.get('/profile/:id', isValidToken, async function(req, res, next) {
       where: {
         id: userArtworks
       } 
-      
     })
   res.render('profile', {user: user, bidHistory: bidHistory, artworks: artwork})
 })

@@ -47,29 +47,10 @@
                                 <td><%= userBid.bidAmount%></td>
                                 <!-- Button for Modal of userBids -->
                                 <td>
-                                    <button type="" class="card-button btn btn-light btn-lg" data-toggle="modal" data-target="#myModal">Bid</button>
-                                    <div id="myModal" class="modal" role="dialog">
-                                        <div class="modal-dialog">
-                                            <!-- Modal content-->
-                                            <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h4 class="modal-title">Enter Bid</h4>
-                                            </div>
-                                            <img src="https://generative-placeholders.glitch.me/image?width=600&height=300&style=tiles">
-                                            <div class="modal-body">
-                                                <p>Artist:</p>
-                                                <p>Title:</p>
-                                                <p>Description:</p>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <form action="submit">
-                                                    <h5>Bid: ID</h5>
-                                                    <input type="text" name="">
-                                                    <button type="button" class="btn btn-default" data-dismiss="modal">Submit</button>
-                                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                                </form>
-                                              </div>
-                                            </div>
+                                  <form action="/users/profile" method="POST" class="form-group">
+                                  <input type="" name="bidID" value="<%= userBid.id %>">
+                                  <button type="submit"  class="card-button btn btn-light btn-lg">Delete</button>
+                                </form>
                                 </td>
                               </tr>
                               <% }) %>
