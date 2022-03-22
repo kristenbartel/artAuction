@@ -134,14 +134,13 @@ router.post('/auction', isValidToken, async (req, res, next) => {
 
 router.post('/profile', async function(req, res, next) {
   const {id} = req.params;
-  const { bidID } = req.body;
+  const { bidID, userID} = req.body;
   const deleteBid = await Bids.destroy({
     where : {
       id: bidID
     }
   })
-  res.send('bid deleted!');
-  // res.redirect(`/profile/${id}`)
+  res.redirect(`/profile/${userID}`)
 });
 
 module.exports = router;
