@@ -46,12 +46,27 @@ router.get('/profile/:id', isValidToken, async function(req, res, next) {
   const bidHistory = await Bids.findAll({
     where: {
       userID: user.id,
-    }
-  })
+    },
+   
+    // include:[
+    //   { model: Artwork, as:'Artwork',
+    //   attributes: ['id', 'artTitle', 'artArtist'],
+    //     where:{ 
+    //           id : Bids[0].Bids.dataValues.artID
+    //           },   
+    //     required:false //left outer join
+    //     }
+    //   ]
+    })
+    
+    console.log(bidHistory);
+    // console.log(bidHistory[0].dataValues.artID);
+
   let userArtworks = [];
     bidHistory.forEach(dataItem => {
       userArtworks.push(dataItem.artID)
   })
+  console.log(userArtworks)
   const artwork = await Artwork.findAll({
       where: {
         id: userArtworks
