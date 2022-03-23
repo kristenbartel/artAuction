@@ -8,6 +8,7 @@ require('dotenv').config();
 const axios = require('axios');
 const { up } = require('../migrations/20220317152333-addTableColumnsArtWorks');
 const saltRounds = bcrypt.genSaltSync(Number(process.env.SALT_FACTOR))
+const isValidProfile = require('../middleware/isValidProfile')
 
 // POST register user to Users table
 router.post('/register', async (req, res, next) => {
@@ -34,9 +35,11 @@ router.post('/login', async function(req, res, next) {
   if(user){
     const comparePass = bcrypt.compareSync(password,user.password)
     if (comparePass){
+      console.log("user is" , user)
       const token = jwt.sign(
         {
-          data:user.username
+          data:user.username,
+          id: user.id
         },
         process.env.SECRET_KEY,
         {expiresIn: "1h"}
@@ -109,9 +112,8 @@ router.post('/art/remove', async function(req, res, next) {
   // }
   res.send("Artwork deleted!")
 });
-
 // POST Auction activity to Bids Table and Artworks Table
-router.post('/auction', isValidToken, async (req, res, next) => {
+router.post('/auction', isValidProfile, async (req, res, next) => {
   const { bidAmount, userID, artID } = req.body;
   // creates or updates a user's Bid
    const foundBid = await Bids.findOne({where: {userID: userID, artID : artID}});
