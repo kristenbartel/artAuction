@@ -69,7 +69,6 @@ router.post('/art', async function(req, res, next) {
   .catch(function (error) {
     console.log(error);
   });
-
   const artImageID = artData.data.image_id;
   const addArtwork = await Artwork.create({
     artTitle: artData.data.title,
@@ -86,34 +85,16 @@ router.post('/art', async function(req, res, next) {
 // POST DELETES to Artworks table - admin only
 router.post('/art/remove', async function(req, res, next) {
   const { artName } = req.body
-  // const art = await Artwork.findOne({
-  //   where: {
-  //     artTitle: artName
-  //   }
-  // })
-  //   .catch( e => {
-  //     res.send(e)
-  //   })
-  //   if (!art){
-  //     res.send("No art found.")
-  //   }
-  //   art.destroy();
-  //   res.send("Artwork removed!")
   const art = await Artwork.destroy({
     where : {
       artTitle: artName
     }
   })
-  // .catch(e => {
-  //   res.send("You received the following error:", e)
-  // })
-  // if (!art){
-  //   res.send("No artwork found!")
-  // }
   res.send("Artwork deleted!")
 });
+
 // POST Auction activity to Bids Table and Artworks Table
-router.post('/auction', isValidProfile, async (req, res, next) => {
+router.post('/auction', isValidToken, async (req, res, next) => {
   const { bidAmount, userID, artID } = req.body;
   // creates or updates a user's Bid
    const foundBid = await Bids.findOne({where: {userID: userID, artID : artID}});
@@ -131,7 +112,6 @@ router.post('/auction', isValidProfile, async (req, res, next) => {
     updateMaxBid.maxBid = bidAmount;
     await updateMaxBid.save();
   res.redirect(`/profile/${userID}`)
-  
 })
 
 router.post('/profile', async function(req, res, next) {
