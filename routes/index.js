@@ -26,7 +26,6 @@ router.get('/login', function(req, res, next) {
   res.render('login');
 });
 
-
 // GET auction view as validUser
 router.get('/auction/:id', isValidProfile, async function(req, res, next) {
 
@@ -41,33 +40,9 @@ router.get('/auction/:id', isValidProfile, async function(req, res, next) {
   res.render('auction', {user: user, art: art })
 });
 
-
 // GET profile view as validUser
 router.get('/profile/:id', isValidProfile, async function(req, res, next) {
-  // add id to JWT payload - done
-  //decode JWT 
-  const token = req.cookies['token']
-
   const {id} = req.params;
-
-    // if (token){
-    //   jwt.verify(
-    //     token,
-    //     process.env.SECRET_KEY,
-    //     function(err, decoded){
-    //       if(decoded){
-    //         if(id === decoded.id){
-    //           console.log("profile id matches")
-    //         }
-    //       } else {
-    //         res.redirect('/error')
-    //       }
-    //     } 
-    //   )
-    // } else {
-    //   res.redirect('error');
-    // }
-  // compare saved id const id
   
   const user = await Users.findOne({
     where:{
