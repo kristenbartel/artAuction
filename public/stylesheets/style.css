@@ -9,6 +9,15 @@ a {
   text-decoration: none;
 }
 
+/* navbar */
+.navbar-brand {
+  font-size: 2rem;
+}
+
+.nav-item {
+  font-size: 1rem;
+}
+
 /* Index View Styling */
 .index-container{
   position: relative;
@@ -55,6 +64,10 @@ a {
   background: linear-gradient(to right, rgba(43, 43, 27, 0.626), rgba(131, 154, 140, 0.606))
 }
 
+.form-label {
+  margin: 1em;
+}
+
 /* Card Styles */
 .card-img-top {
   width: 100%;
@@ -77,6 +90,10 @@ a {
 .calling-card {
   display: flex;
   justify-content: center;
+}
+
+.about-us-text {
+  font-size: 1rem;
 }
 
 @-webkit-keyframes pulse {
