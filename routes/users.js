@@ -27,20 +27,17 @@ router.post('/register', async (req, res, next) => {
 
 //  POST user login to Users table
 router.post('/login', adminRoute, async function(req, res, next) {
-  // next()
   const { userName, password} = req.body;
   const user = await Users.findOne ({
     where: {
-      userName : userName,
+      userName : userName
     }
-  }); //hashing
-  if(user){
-    const comparePass = bcrypt.compareSync(password,user.password)
-    if (comparePass){
-      console.log("user is" , user)
+  })
+  const comparePass = bcrypt.compareSync(password,user.password)
+    if (comparePass) {
       const token = jwt.sign(
         {
-          data:user.username,
+          data: user.username,
           id: user.id
         },
         process.env.SECRET_KEY,
@@ -48,13 +45,10 @@ router.post('/login', adminRoute, async function(req, res, next) {
       );
       res.cookie("token", token)
       res.redirect(`/auction/${user.id}`);
-    } else {
-      res.send('Sorry, wrong username/password')
-    }
-  } else {
-    res.send("sorry, no user found");
-  }
-});
+      } else {
+        res.send('Sorry, wrong username/password')
+      }
+  });
 
 router.post('/art', async function(req, res, next) {
   const { artID, startingAmount } = req.body
