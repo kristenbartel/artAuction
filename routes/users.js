@@ -54,7 +54,7 @@ router.post('/login', async function(req, res, next) {
   }
 });
 
-// POST to Artworks table - admin only
+// POST artworks to Artworks table - admin only
 router.post('/art', async function(req, res, next) {
   const { artID, startingAmount } = req.body
   const config = {
@@ -82,7 +82,7 @@ router.post('/art', async function(req, res, next) {
   // change this to a res.render admin view of all artworks in db
 });
 
-// POST DELETES to Artworks table - admin only
+//DELETE artworks from Artworks Table - admin only
 router.post('/art/remove', async function(req, res, next) {
   const { artName } = req.body
   const art = await Artwork.destroy({
@@ -101,10 +101,11 @@ router.post('/auction', isValidToken, async (req, res, next) => {
    if (!foundBid) {
     const createBid =  await Bids.create({bidAmount, userID, artID});
     } else {
-      foundBid.bidAmount = bidAmount; //first run throws error, second run takes
+      foundBid.bidAmount = bidAmount;
       await foundBid.save();
     } 
-  // updates Artworks maxBid
+
+  // UPDATE Artworks Table maxBid
   const updateMaxBid = await Artwork.findOne({where: {id: artID}});
     if (!updateMaxBid) {
         throw Error(`Artwork not updated`);
@@ -114,6 +115,7 @@ router.post('/auction', isValidToken, async (req, res, next) => {
   res.redirect(`/profile/${userID}`)
 })
 
+// DELETE Users bid from Bids Table Profile
 router.post('/profile', async function(req, res, next) {
   const {id} = req.params;
   const { bidID, userID} = req.body;
