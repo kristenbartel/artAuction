@@ -50,6 +50,7 @@ router.post('/login', adminRoute, async function(req, res, next) {
       }
   });
 
+// POST artwork to Artworks Table
 router.post('/art', async function(req, res, next) {
   const { artID, startingAmount } = req.body
   const config = {
@@ -73,7 +74,8 @@ router.post('/art', async function(req, res, next) {
     artYear: artData.data.date_display,
     startingAmount: startingAmount
   })
-  res.send("Artwork added!")
+  // res.send("Artwork added!")
+  res.redirect(`/auction/17`)
   // change this to a res.render admin view of all artworks in db
 });
 
@@ -85,13 +87,13 @@ router.post('/art/remove', async function(req, res, next) {
       artTitle: artName
     }
   })
-  res.send("Artwork deleted!")
+  // res.send("Artwork deleted!")
+  res.redirect(`/auction/17`)
 });
 
-// POST Auction activity to Bids Table and Artworks Table
+// POST CREATE and UPDATE Auction activity to Bids Table and Artworks Table
 router.post('/auction', isValidToken, async (req, res, next) => {
   const { bidAmount, userID, artID } = req.body;
-  // creates or updates a user's Bid
    const foundBid = await Bids.findOne({where: {userID: userID, artID : artID}});
    if (!foundBid) {
     const createBid =  await Bids.create({bidAmount, userID, artID});
@@ -110,7 +112,7 @@ router.post('/auction', isValidToken, async (req, res, next) => {
   res.redirect(`/profile/${userID}`)
 })
 
-// DELETE Users bid from Bids Table Profile
+// DELETE user bid from Bids Table from Profile
 router.post('/profile', async function(req, res, next) {
   const {id} = req.params;
   const { bidID, userID} = req.body;

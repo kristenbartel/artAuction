@@ -5,37 +5,10 @@
 </head>
   <body>
  <%- include('partials/navbar-public') -%>
- <br>
-<h1>Auction Preview</h1>
-<div id="carousel-auctionPreview" class="carousel slide carousel-fade z-depth-1-half" data-ride="carousel">
-  <div class="carousel-inner" role="listbox"></div>
-  <div class="carousel-item active">
-      <h3 class="h3-responsive">Strong mask</h3>
-      <p>Secondary text</p>
-  </div>
-    <% art.forEach(piece => { %>
-      <div class="carousel-item">
-        <div class="view">
-          <img class="d-block w-100 h-50" src="<%= piece.artImage %>" alt="Second slide">
-        </div>
-        <div class="carousel-caption">
-          <h3 class="h3-responsive"><%= piece.artTitle %></h3>
-          <p>Secondary text</p>
-        </div>
-      </div>
-    <% }) %>
-    
-      <a class="carousel-control-prev" href="#carousel-auctionPreview" role="button" data-slide="prev">
-        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span class="sr-only"></span>
-      </a>
-      <a class="carousel-control-next" href="#carousel-auctionPreview" role="button" data-slide="next">
-        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        <span class="sr-only"></span>
-      </a>
-    
-</div>
 
+<div class="index-container">
+  <img src="../stylesheets/flowers-w-text.png" alt="" class="index-view-image">
+  
   </body>
   <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>

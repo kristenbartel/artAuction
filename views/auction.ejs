@@ -6,9 +6,9 @@
 <body style="padding: 50px">
     <!-- nav bar -->
     <%- include('partials/navbar-private') -%>
-    <h1>Auction</h1>
+    
       <!-- auction cards -->
-        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-xl-4 g-4">
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-xl-4 g-4 mt-3">
         <% art.forEach(piece => { %>
             <div class="col">
             <div class="card h-100">
@@ -18,7 +18,8 @@
                 <p class="card-text"><%= piece.artTitle %></p>
                 <p class="card-text"><%= piece.artYear %></p>
                 <p class="card-text"><%= piece.artDetails %></p>
-                <p class="card-text"><small class="text-muted">High Bid: <b><%= piece.maxBid %></b></small></p>
+                <p class="card-text"><small class="text-muted">LOT# <b><%= piece.id %></b></small></p>
+                <p class="card-text"><small class="text-muted">CURRENT BID: <b>$<%= piece.maxBid %></b></small></p>
                 <div class="card-footer">
                 <br>
                 <!-- bid form -->
@@ -27,23 +28,26 @@
                     <input type="hidden" name="artID" value="<%= piece.id %>">
                     <input type="number" oninvalid="this.setCustomValidity('Your bid must at least be $' + '<%= piece.maxBid + 1000%>')" oninput="setCustomValidity('')" min="<%= piece.maxBid + 1000%>" name="bidAmount" placeholder="enter bid" class="form-control"> 
                     <br>
-                    <button type="submit" class="btn btn-default btn-dark">Submit Bid</button>
+                    <button type="submit" class="btn btn-default btn-dark ps-3 pe-3">Submit</button>
                 </form>
                 <br>
                 <!-- modal trigger button -->
-                <button type="" class="card-button btn btn-dark btn-lg" data-toggle="modal" data-target="#myModal">Details</button>
+                <button type="" class="card-button btn btn-dark ps-3 pe-3" data-toggle="modal" data-target="#myModal-<%= piece.id %>">Details</button>
                 </div>
                 <!-- modal -->
-                <div id="myModal" class="modal" role="dialog">
+                <div id="myModal-<%= piece.id %>" class="modal" role="dialog">
                     <div class="modal-dialog modal-lg">
                     <!-- Modal content-->
                     <div class="modal-content">
                      <div class="modal-header">
-                        <h4 class="modal-title"><%= piece.artTitle %></h4>
+                        <h5 class="modal-title">LOT#<%= piece.id %></h5>
                     </div>
                         <img src="<%= piece.artImage %>">
                     <div class="modal-body">
-                        <p><%= piece.artDetails %></p>
+                        <h5 class="card-title">Artist: <%= piece.artArtist %></h5>
+                        <p class="card-text">Title: <%= piece.artTitle %></p>
+                        <p class="card-text">Year: <%= piece.artYear %></p>
+                        <p class="card-text">Details: <%= piece.artDetails %></p>
                     </div>
                     <div class="modal-footer"></div>
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

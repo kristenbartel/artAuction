@@ -3,29 +3,80 @@ body {
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
   /* font-family: Varela Round; */
   background: #f1f1f1 !important;
+  font-family: 'Jost', sans-serif;
 }
-
-.gradient-custom-3 {
-  /* fallback for old browsers */
-  background: #84fab0;
-
-  /* Chrome 10-25, Safari 5.1-6 */
-  background: -webkit-linear-gradient(to right, rgba(132, 250, 176, 0.5), rgba(143, 211, 244, 0.5));
-
-  /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-  background: linear-gradient(to right, rgba(132, 250, 176, 0.5), rgba(143, 211, 244, 0.5))
-}
-
 a {
   text-decoration: none;
 }
 
-/* Card Styles */
-.card-image-top {
-  width: 20vw;
-  height: 15vw;
+/* Index View Styling */
+.index-container{
+  position: relative;
+  text-align: center;
+}
+.index-text-overlay{
+  font-family: 'Jost', sans-serif;
+  background-color: rgb(36, 36, 3);
+  position: absolute;
+  top: 15%;
+  left: 15%;
+  right: 15%;
+  z-index: 2;
+  font-size: 3em;
+  color: white;
+}
+.index-view-image{
+  display: block;
+  margin: auto;
+  height: 80vw;
+  width: auto;
+}
+
+/* Profile and Login Views Styles */
+.bg-image-container {
+  position: relative;
+  text-align: center;
+}
+.bg-image {
+  background-image:url(/stylesheets/kline.png);
+  background-repeat: no-repeat;
   object-fit: cover;
-  /* border-radius: 8px 8px 0px 0; */
+  display: block;
+  margin: auto;
+  height: 80vw;
+  width: auto;
+}
+.gradient-custom-3 {
+  /* fallback for old browsers */
+  background: #b5d8c7;
+  /* Chrome 10-25, Safari 5.1-6 */
+  background: -webkit-linear-gradient(to right, rgba(43, 43, 27, 0.626), rgba(131, 154, 140, 0.606));
+  /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  background: linear-gradient(to right, rgba(43, 43, 27, 0.626), rgba(131, 154, 140, 0.606))
+}
+
+/* Card Styles */
+.card-img-top {
+  width: 100%;
+  height: 40vh;
+  object-fit: cover;
+}
+.card-body {
+  font-family: 'Jost', sans-serif;
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+/* About Us View */
+.about-us-container {
+  font-family: 'Jost', sans-serif;
+  display: flex;
+  justify-content: center;
+}
+.calling-card {
+  display: flex;
+  justify-content: center;
 }
 
 @-webkit-keyframes pulse {
@@ -52,3 +103,64 @@ a {
       box-shadow: 0 0 0 0 rgba(90, 153, 212, 0);
   }
 }
+
+/* .wordCarousel {
+  z-index: 2;
+  font-size: 36px;
+  font-weight: 100;
+  color: #eee;
+  div {
+      overflow: hidden;
+      position: relative;
+      float: right;
+      height: 65px;
+      padding-top: 10px;
+      margin-top: -10px;
+      li {
+          font-family: Serif;
+          color: #eee;
+          font-weight: 700;
+          padding: 0 10px;
+          height: 45px;
+          margin-bottom: 45px;
+          display: block;
+      }
+  }
+}
+
+.flip2 { animation: flip2 6s cubic-bezier(0.23, 1, 0.32, 1.2) infinite; }
+.flip3 { animation: flip3 8s cubic-bezier(0.23, 1, 0.32, 1.2) infinite; }
+.flip4 { animation: flip4 10s cubic-bezier(0.23, 1, 0.32, 1.2) infinite; }
+
+@keyframes flip2 {
+  0% { margin-top: -180px; }
+  5% { margin-top: -90px;  }
+  50% { margin-top: -90px; }
+  55% { margin-top: 0px; }
+  99.99% { margin-top: 0px; }
+  100% { margin-top: -270px; }
+}
+
+@keyframes flip3 {
+  0% { margin-top: -270px; }
+  5% { margin-top: -180px; }
+  33% { margin-top: -180px; }
+  38% { margin-top: -90px; }
+  66% { margin-top: -90px; }
+  71% { margin-top: 0px; }
+  99.99% { margin-top: 0px; }
+  100% { margin-top: -270px; }
+}
+
+@keyframes flip4 {
+  0% { margin-top: -360px; }
+  5% { margin-top: -270px; }
+  25% { margin-top: -270px; }
+  30% { margin-top: -180px; }
+  50% { margin-top: -180px; }
+  55% { margin-top: -90px; }
+  75% { margin-top: -90px; }
+  80% { margin-top: 0px; }
+  99.99% { margin-top: 0px; }
+  100% { margin-top: -270px; }
+} */

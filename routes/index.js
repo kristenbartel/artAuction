@@ -1,9 +1,6 @@
 const express = require('express');
 const router = express.Router();
 const { Users, Bids, Artwork } = require('../models');
-const brcypt = require('bcrypt');
-const jwt = require('jsonwebtoken');
-// const axios = require('axios');
 const isValidToken = require('../middleware/isValidToken')
 const isValidProfile = require('../middleware/isValidProfile')
 require('dotenv').config();
@@ -65,7 +62,7 @@ router.get('/profile/:id', isValidProfile, async function(req, res, next) {
   res.render('profile', {user: user, bidHistory: bidHistory, artworks: artwork})
 })
 
-// GET Profile Artwork Details view
+// GET profileDetails view
 router.get('/details/:artID/:user', async function(req, res, next) {
   const artID = req.params.artID;
   const user = req.params.user;
@@ -80,7 +77,7 @@ router.get('/details/:artID/:user', async function(req, res, next) {
       id: artID
     }
   })
-  res.render('profileDetails', {artDetail: artDetail, users: users}); 
+  res.render('profileDetails', {artDetail: artDetail, user: users}); 
 });
 
 // GET About Us view
@@ -92,7 +89,7 @@ router.get('/admin/:id', isValidProfile, async function(req, res, next) {
   const {id} = req.params;
   const user = await Users.findOne({
     where:{
-      id: 17
+      id: id
     }
   })
   res.render('admin', {user: user}); 

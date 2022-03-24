@@ -5,31 +5,35 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <!-- <link rel="stylesheet" href="../stylesheets/style.css"> -->
     <!-- this will not accept a stylesheet error:     
         sql: `SELECT "id", "firstName", "lastName", "userName", "email", "password", "createdAt", "updatedAt" FROM "Users" AS "Users" WHERE "Users"."id" = 'style.css';`,
     parameters: undefined},
     original: error: invalid input syntax for integer: "style.css"-->
 </head>
-<body class="padding: 50px">
+<body style="padding: 50px">
 <!-- nav bar -->
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="/">ArtAuction</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-      <div class="navbar-nav">
-        <a class="nav-item nav-link" href="/auction/<%= users.id %>">Auction</a>
-        <a class="nav-item nav-link" href="/profile/<%= users.id %>">Profile</a>
-        <a class="nav-item nav-link" href="/about">About</a>
+<%- include('partials/navbar-private') -%>
+  <!-- Artwork Details -->
+  <section class="vh-100 ">
+    <div class="mask d-flex align-items-center h-100 gradient-custom-3">
+      <div class="container h-100">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="card" style="border-radius: 15px; width:fit-content">
+              <div class="card-body p-5">
+                <h2 class="text-uppercase text-center mb-5">LOT# <%- artDetail.id-%></h2>
+                <img src="<%- artDetail.artImage -%>" alt="" style="display: flex; width: 60vw;">
+                <br>
+                <p>Artist: <%- artDetail.artArtist -%></p>
+                <p>Title: <%- artDetail.artTitle -%></p>
+                <p>Year: <%- artDetail.artYear -%></p>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-  </nav>
-  <!-- Artwork Details -->
-  <h1>style the following: </h1>
-  <%- artDetail.artTitle -%>
-  <%- artDetail.artArtist -%>
-  <%- artDetail.artTitle -%>
+  </section>
   <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>

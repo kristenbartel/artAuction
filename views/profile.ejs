@@ -5,22 +5,10 @@
 </head>
 <body class="padding: 50px">
 <!-- nav bar -->
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="/">ArtAuction</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-      <div class="navbar-nav">
-        <a class="nav-item nav-link" href="/auction/<%= user.id %>">Auction</a>
-        <a class="nav-item nav-link" href="/profile/<%= user.id %>">Profile</a>
-        <a class="nav-item nav-link" href="/about">About</a>
-      </div>
-    </div>
-  </nav>
+<%- include('partials/navbar-private') -%>
 <!-- User's Bid Ledger w Delete Button & Details Button -->
     <section class="vh-100 bg-image">
-        <div class="mask d-flex align-items-center h-100 gradient-custom-3">
+        <div class="mask d-flex align-items-center h-100">
           <div class="container h-100">
             <div class="row d-flex justify-content-center align-items-center h-100">
               <div class="col-12 col-md-9 col-lg-7 col-xl-6">
@@ -30,28 +18,26 @@
                         <table class="table table-hover">
                             <thead>
                               <tr>
-                                <th scope="col">artID</th>
+                                <th scope="col">LOT#</th>
                                 <th scope="col">Bid Amount</th>
-                                <th scope="col">Details</th>
-                                <th scope="col">Delete Bid</th>
+                                <th scope="col">Artwork</th>
+                                <th scope="col">Withdraw</th>
                               </tr>
                             </thead>
                             <tbody>
                               <tr>
                                 <% bidHistory.forEach(userBid => { %>
                                 <th scope="row"><%= userBid.artID%></th>
-                                <td>$<%= userBid.bidAmount%>.00</td>
+                                <td>$<%= userBid.bidAmount%></td>
                                 <td>
-
-                                 <a href="/details/<%= userBid.artID %>/<%= userBid.userID %>"><button type="" class="card-button btn btn-light btn-lg" data-toggle="modal" name="artID" value="<%= userBid.artID%>" data-target="#myModal"><%= userBid.artID%></button></a> 
-                                 
+                                 <a href="/details/<%= userBid.artID %>/<%= userBid.userID %>"><button type="" class="card-button btn btn-light" data-toggle="modal" name="artID" value="<%= userBid.artID%>" data-target="#myModal">Details</button></a> 
                                 </td> 
                                 <td>
                                   <form action="/users/profile" method="POST" class="form-group">
                                   <input type="hidden" name="bidID" value="<%= userBid.id %>">
                                   <input type="hidden" name="artID" value="<%= userBid.artID %>">
                                   <input type="hidden" name="userID" value="<%= userBid.userID %>">
-                                  <button type="submit"  class="card-button btn btn-light btn-lg">Delete</button>
+                                  <button type="submit"  class="card-button btn btn-light">Delete</button>
                                 </form>
                                 </td>
                               </tr>

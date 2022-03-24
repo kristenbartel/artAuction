@@ -5,29 +5,37 @@
 </head>
 <body>
     <!-- nav bar -->
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="/">ArtAuction</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-      <div class="navbar-nav">
-        <a class="nav-item nav-link" href="/auction/<%= user.id %>">Auction</a>
-        <a class="nav-item nav-link" href="/profile/<%= user.id %>">Profile</a>
-        <a class="nav-item nav-link" href="/about">About</a>
+    <%- include('partials/navbar-private') -%>
+     <!-- Auction Items Form -->
+    <div class="bg-image-container">
+      <section class="vh-100 bg-image ">
+          <div class="mask d-flex align-items-center h-100">
+            <div class="container h-100">
+              <div class="row d-flex justify-content-center align-items-center h-100">
+                <div class="col-12 col-md-9 col-lg-7 col-xl-6">
+                  <div class="card" style="border-radius: 15px;">
+                    <div class="card-body p-5">
+                      <h2 class="text-uppercase text-center mb-5">Auction Items</h2>
+                      <form action="/users/art" method="POST" class="form-group">
+                        <input type="number" name="artID" placeholder="Enter art ID" class="form-control">
+                        <br>
+                        <input type="number" min="10000" step="1000" name="startingAmount" placeholder="Enter starting amount above $10,000" class="form-control">
+                        <br>
+                        <button type="submit" class="btn btn-default btn-dark">Add Artwork</button>
+                    </form>
+                    <br>
+                    <form action="/users/art/remove" method="POST" class="form-group">
+                        <input type="text" name="artName" placeholder="Enter Artwork Name" class="form-control">
+                        <br>
+                        <button type="submit" class="btn btn-default btn-dark">Remove Artwork</button>
+                    </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
       </div>
-    </div>
-  </nav>
-    <h1>Admin</h1>
-    <form action="/users/art" method="POST" class="form-group">
-        <input type="number" name="artID" placeholder="Enter art ID" class="form-control">
-        <input type="number" min="10000" step="1000" name="startingAmount" placeholder="Enter starting amount above $10,000" class="form-control">
-        <button type="submit" class="btn btn-default btn-dark">Add Artwork</button>
-    </form>
-    <br>
-    <form action="/users/art/remove" method="POST" class="form-group">
-        <input type="text" name="artName" placeholder="Enter Artwork Name" class="form-control">
-        <button type="submit" class="btn btn-default btn-dark">Remove Artwork</button>
-    </form>
 </body>
 </html>
