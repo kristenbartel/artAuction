@@ -10,14 +10,14 @@ const user = await Users.findOne ({
   where: {
     userName : userName,
   }
-}); //hashing
-//admin login
+}); 
 if(user.id != 17){
     next()
 };
-if(user){
-  const comparePass = bcrypt.compareSync(password,user.password)
-  if (comparePass){
+// if(user){
+//   const comparePass = bcrypt.compareSync(password, user.password)
+//   console.log("line 20" , user, comparePass)
+//   if (comparePass){
     if(user.id == 17){ 
         
       console.log("userName is " , userName)
@@ -25,13 +25,12 @@ if(user){
     const token = jwt.sign(
       {
         id: user.id,
-        // id: user.id
       },
       process.env.SECRET_KEY,
       {expiresIn: "1h"}
     )
-    
     res.cookie("token", token)
-    res.redirect(`/admin/${user.id}`)}}}}
+    res.redirect(`/admin/${user.id}`)}}
+    // }}
 
     module.exports = adminRoute;

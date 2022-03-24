@@ -7,8 +7,8 @@
 <!-- nav bar -->
 <%- include('partials/navbar-private') -%>
 <!-- User's Bid Ledger w Delete Button & Details Button -->
-    <section class="vh-100 ">
-        <div class="mask d-flex align-items-center h-100 gradient-custom-3">
+    <section class="vh-100 bg-image">
+        <div class="mask d-flex align-items-center h-100">
           <div class="container h-100">
             <div class="row d-flex justify-content-center align-items-center h-100">
               <div class="col-12 col-md-9 col-lg-7 col-xl-6">
@@ -30,16 +30,14 @@
                                 <th scope="row"><%= userBid.artID%></th>
                                 <td>$<%= userBid.bidAmount%></td>
                                 <td>
-
-                                 <a href="/details/<%= userBid.artID %>/<%= userBid.userID %>"><button type="" class="card-button btn btn-light btn-lg" data-toggle="modal" name="artID" value="<%= userBid.artID%>" data-target="#myModal">Details</button></a> 
-                                 
+                                 <a href="/details/<%= userBid.artID %>/<%= userBid.userID %>"><button type="" class="card-button btn btn-light" data-toggle="modal" name="artID" value="<%= userBid.artID%>" data-target="#myModal">Details</button></a> 
                                 </td> 
                                 <td>
                                   <form action="/users/profile" method="POST" class="form-group">
                                   <input type="hidden" name="bidID" value="<%= userBid.id %>">
                                   <input type="hidden" name="artID" value="<%= userBid.artID %>">
                                   <input type="hidden" name="userID" value="<%= userBid.userID %>">
-                                  <button type="submit"  class="card-button btn btn-light btn-lg">Delete</button>
+                                  <button type="submit"  class="card-button btn btn-light">Delete</button>
                                 </form>
                                 </td>
                               </tr>

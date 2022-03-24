@@ -33,6 +33,7 @@ router.post('/login', adminRoute, async function(req, res, next) {
       userName : userName,
     }
   });
+  
   if(user){
     const comparePass = bcrypt.compareSync(password,user.password)
     if (comparePass){
@@ -79,7 +80,8 @@ router.post('/art', async function(req, res, next) {
     artYear: artData.data.date_display,
     startingAmount: startingAmount
   })
-  res.send("Artwork added!")
+  // res.send("Artwork added!")
+  res.redirect(`/auction/17`)
   // change this to a res.render admin view of all artworks in db
 });
 
@@ -91,7 +93,8 @@ router.post('/art/remove', async function(req, res, next) {
       artTitle: artName
     }
   })
-  res.send("Artwork deleted!")
+  // res.send("Artwork deleted!")
+  res.redirect(`/auction/17`)
 });
 
 // POST CREATE and UPDATE Auction activity to Bids Table and Artworks Table

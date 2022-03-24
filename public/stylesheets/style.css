@@ -3,6 +3,7 @@ body {
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
   /* font-family: Varela Round; */
   background: #f1f1f1 !important;
+  font-family: 'Jost', sans-serif;
 }
 a {
   text-decoration: none;
@@ -14,9 +15,12 @@ a {
   text-align: center;
 }
 .index-text-overlay{
+  font-family: 'Jost', sans-serif;
+  background-color: rgb(36, 36, 3);
   position: absolute;
   top: 15%;
   left: 15%;
+  right: 15%;
   z-index: 2;
   font-size: 3em;
   color: white;
@@ -34,7 +38,9 @@ a {
   text-align: center;
 }
 .bg-image {
-  background-image:url(/stylesheets/flowers.png);
+  background-image:url(/stylesheets/kline.png);
+  background-repeat: no-repeat;
+  object-fit: cover;
   display: block;
   margin: auto;
   height: 80vw;
@@ -56,9 +62,21 @@ a {
   object-fit: cover;
 }
 .card-body {
+  font-family: 'Jost', sans-serif;
   width: 100%;
   height: auto;
   object-fit: cover;
+}
+
+/* About Us View */
+.about-us-container {
+  font-family: 'Jost', sans-serif;
+  display: flex;
+  justify-content: center;
+}
+.calling-card {
+  display: flex;
+  justify-content: center;
 }
 
 @-webkit-keyframes pulse {
