@@ -9,6 +9,7 @@ const isValidProfile = (req,res, next) =>{
         token,
         process.env.SECRET_KEY,
         function(err, decoded){
+            console.log("this is decoded", decoded)
             console.log(decoded.id, req.params.id)
           if(decoded.id == req.params.id){
               // compare decoded.id to req.params.id
