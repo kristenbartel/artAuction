@@ -25,7 +25,7 @@
                 <form action="/users/auction" method="POST" class="form-group">
                     <input type="hidden" name="userID" value="<%= user.id %>">
                     <input type="hidden" name="artID" value="<%= piece.id %>">
-                    <input type="number" name="bidAmount" placeholder="enter bid" class="form-control">
+                    <input type="number" oninvalid="this.setCustomValidity('Your bid must at least be $' + '<%= piece.maxBid + 1000%>')" oninput="setCustomValidity('')" min="<%= piece.maxBid + 1000%>" name="bidAmount" placeholder="enter bid" class="form-control"> 
                     <br>
                     <button type="submit" class="btn btn-default btn-dark">Submit Bid</button>
                 </form>
