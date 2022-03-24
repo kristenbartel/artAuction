@@ -88,15 +88,15 @@ router.get('/about', function(req, res, next) {
   res.render('about'); 
 });
 
-// GET admin view
-router.get('/admin/17', isValidProfile, async function(req, res, next) {
-  // const {id} = req.params;
-  // const user = await Users.findOne({
-  //   where:{
-  //     id: id
-  //   }
-  // })
-  res.render('admin'); 
+router.get('/admin/:id', isValidProfile, async function(req, res, next) {
+  const {id} = req.params;
+  const user = await Users.findOne({
+    where:{
+      id: 17
+    }
+  })
+  res.render('admin', {user: user}); 
+
 });
 
 module.exports = router;
