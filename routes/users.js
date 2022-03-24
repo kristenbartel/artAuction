@@ -9,6 +9,7 @@ const axios = require('axios');
 const { up } = require('../migrations/20220317152333-addTableColumnsArtWorks');
 const saltRounds = bcrypt.genSaltSync(Number(process.env.SALT_FACTOR))
 const isValidProfile = require('../middleware/isValidProfile')
+const adminRoute = require('../middleware/adminRoute')
 
 // POST register user to Users table
 router.post('/register', async (req, res, next) => {
@@ -25,31 +26,15 @@ router.post('/register', async (req, res, next) => {
 })
 
 //  POST user login to Users table
-router.post('/login', async function(req, res, next) {
+router.post('/login', adminRoute, async function(req, res, next) {
+  // next()
   const { userName, password} = req.body;
   const user = await Users.findOne ({
     where: {
       userName : userName,
     }
   }); //hashing
-  //admin login
   if(user){
-    const comparePass = bcrypt.compareSync(password,user.password)
-    if (comparePass){
-      console.log("user is" , user)
-      const token = jwt.sign(
-        {
-          userName: "Admin",
-          id: user.id
-        },
-        process.env.SECRET_KEY,
-        {expiresIn: "1h"}
-      );
-      res.cookie("token", token)
-      res.redirect(`/admin/${user.id}`);
-    } 
-  // Regular route
-  else if(user){
     const comparePass = bcrypt.compareSync(password,user.password)
     if (comparePass){
       console.log("user is" , user)
@@ -69,7 +54,19 @@ router.post('/login', async function(req, res, next) {
   } else {
     res.send("sorry, no user found");
   }
-}});
+});
+
+
+
+
+
+
+
+
+
+
+
+
 
 // POST to Artworks table - admin only
 router.post('/art', async function(req, res, next) {

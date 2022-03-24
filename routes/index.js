@@ -101,10 +101,10 @@ router.get('/admin/:id', isValidProfile, async function(req, res, next) {
   const {id} = req.params;
   const user = await Users.findOne({
     where:{
-      id: id
+      id: 17
     }
   })
-  res.render('admin'); 
+  res.render('admin', {user: user}); 
 });
 
 module.exports = router;
