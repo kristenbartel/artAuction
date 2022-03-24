@@ -27,13 +27,12 @@ router.post('/register', async (req, res, next) => {
 
 //  POST user login to Users table
 router.post('/login', adminRoute, async function(req, res, next) {
-  // next()
   const { userName, password} = req.body;
   const user = await Users.findOne ({
     where: {
       userName : userName,
     }
-  }); //hashing
+  });
   if(user){
     const comparePass = bcrypt.compareSync(password,user.password)
     if (comparePass){
@@ -56,6 +55,7 @@ router.post('/login', adminRoute, async function(req, res, next) {
   }
 });
 
+// POST artwork to Artworks Table
 router.post('/art', async function(req, res, next) {
   const { artID, startingAmount } = req.body
   const config = {
@@ -94,10 +94,9 @@ router.post('/art/remove', async function(req, res, next) {
   res.send("Artwork deleted!")
 });
 
-// POST Auction activity to Bids Table and Artworks Table
+// POST CREATE and UPDATE Auction activity to Bids Table and Artworks Table
 router.post('/auction', isValidToken, async (req, res, next) => {
   const { bidAmount, userID, artID } = req.body;
-  // creates or updates a user's Bid
    const foundBid = await Bids.findOne({where: {userID: userID, artID : artID}});
    if (!foundBid) {
     const createBid =  await Bids.create({bidAmount, userID, artID});
@@ -116,7 +115,7 @@ router.post('/auction', isValidToken, async (req, res, next) => {
   res.redirect(`/profile/${userID}`)
 })
 
-// DELETE Users bid from Bids Table Profile
+// DELETE user bid from Bids Table from Profile
 router.post('/profile', async function(req, res, next) {
   const {id} = req.params;
   const { bidID, userID} = req.body;
