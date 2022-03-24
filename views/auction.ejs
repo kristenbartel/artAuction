@@ -22,7 +22,7 @@
                 <div class="card-footer">
                 <br>
                 <!-- bid form -->
-                <form action="/users/auction" method="POST" class="form-group">
+                <form action="/users/auction/" method="POST" class="form-group">
                     <input type="hidden" name="userID" value="<%= user.id %>">
                     <input type="hidden" name="artID" value="<%= piece.id %>">
                     <input type="number" name="bidAmount" placeholder="enter bid" class="form-control">

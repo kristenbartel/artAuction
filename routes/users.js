@@ -32,7 +32,24 @@ router.post('/login', async function(req, res, next) {
       userName : userName,
     }
   }); //hashing
+  //admin login
   if(user){
+    const comparePass = bcrypt.compareSync(password,user.password)
+    if (comparePass){
+      console.log("user is" , user)
+      const token = jwt.sign(
+        {
+          userName: "Admin",
+          id: user.id
+        },
+        process.env.SECRET_KEY,
+        {expiresIn: "1h"}
+      );
+      res.cookie("token", token)
+      res.redirect(`/admin/${user.id}`);
+    } 
+  // Regular route
+  else if(user){
     const comparePass = bcrypt.compareSync(password,user.password)
     if (comparePass){
       console.log("user is" , user)
@@ -52,7 +69,7 @@ router.post('/login', async function(req, res, next) {
   } else {
     res.send("sorry, no user found");
   }
-});
+}});
 
 // POST to Artworks table - admin only
 router.post('/art', async function(req, res, next) {
@@ -113,7 +130,7 @@ router.post('/art/remove', async function(req, res, next) {
   res.send("Artwork deleted!")
 });
 // POST Auction activity to Bids Table and Artworks Table
-router.post('/auction', isValidProfile, async (req, res, next) => {
+router.post('/auction/', isValidToken, async (req, res, next) => {
   const { bidAmount, userID, artID } = req.body;
   // creates or updates a user's Bid
    const foundBid = await Bids.findOne({where: {userID: userID, artID : artID}});

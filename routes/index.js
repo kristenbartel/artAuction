@@ -97,13 +97,13 @@ router.get('/about', function(req, res, next) {
 });
 
 
-router.get('/admin/17', isValidProfile, async function(req, res, next) {
-  // const {id} = req.params;
-  // const user = await Users.findOne({
-  //   where:{
-  //     id: id
-  //   }
-  // })
+router.get('/admin/:id', isValidProfile, async function(req, res, next) {
+  const {id} = req.params;
+  const user = await Users.findOne({
+    where:{
+      id: id
+    }
+  })
   res.render('admin'); 
 });
 
