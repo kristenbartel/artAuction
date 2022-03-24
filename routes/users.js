@@ -72,7 +72,8 @@ router.post('/art', async function(req, res, next) {
     artImage: `https://www.artic.edu/iiif/2/${artImageID}/full/843,/0/default.jpg`,
     artArtist: artData.data.artist_title,
     artYear: artData.data.date_display,
-    startingAmount: startingAmount
+    startingAmount: startingAmount,
+    maxBid: startingAmount
   })
   // res.send("Artwork added!")
   res.redirect(`/auction/17`)
@@ -81,10 +82,10 @@ router.post('/art', async function(req, res, next) {
 
 //DELETE artworks from Artworks Table - admin only
 router.post('/art/remove', async function(req, res, next) {
-  const { artName } = req.body
+  const { artID } = req.body
   const art = await Artwork.destroy({
     where : {
-      artTitle: artName
+      id: artID
     }
   })
   // res.send("Artwork deleted!")
