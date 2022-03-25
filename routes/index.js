@@ -85,6 +85,7 @@ router.get('/about', function(req, res, next) {
   res.render('about'); 
 });
 
+// GET Admin view
 router.get('/admin/:id', isValidProfile, async function(req, res, next) {
   const {id} = req.params;
   const user = await Users.findOne({
@@ -93,7 +94,6 @@ router.get('/admin/:id', isValidProfile, async function(req, res, next) {
     }
   })
   res.render('admin', {user: user}); 
-
 });
 
 module.exports = router;
