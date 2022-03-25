@@ -1,9 +1,0 @@
-{
-  "production": {
-    "username": "ohjyjzop",
-    "password": "43MXSywJ3HrYbdlxEEvVCVItnLDU-J1G",
-    "database": "ohjyjzop",
-    "host": "kashin.db.elephantsql.com",
-    "dialect": "postgres"
-  }
-}

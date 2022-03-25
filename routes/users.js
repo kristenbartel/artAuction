@@ -10,6 +10,7 @@ const { up } = require('../migrations/20220317152333-addTableColumnsArtWorks');
 const saltRounds = bcrypt.genSaltSync(Number(process.env.SALT_FACTOR))
 const isValidProfile = require('../middleware/isValidProfile')
 const adminRoute = require('../middleware/adminRoute')
+// ----------------------------------------
 
 // POST register user to Users table
 router.post('/register', async (req, res, next) => {
@@ -75,9 +76,7 @@ router.post('/art', async function(req, res, next) {
     startingAmount: startingAmount,
     maxBid: startingAmount
   })
-  // res.send("Artwork added!")
   res.redirect(`/auction/17`)
-  // change this to a res.render admin view of all artworks in db
 });
 
 //DELETE artworks from Artworks Table - admin only
@@ -88,7 +87,6 @@ router.post('/art/remove', async function(req, res, next) {
       id: artID
     }
   })
-  // res.send("Artwork deleted!")
   res.redirect(`/auction/17`)
 });
 
